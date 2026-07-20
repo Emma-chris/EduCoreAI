@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Teacher Management | EduCore AI</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Inter & Geist -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e0e3e5",
+                        "on-tertiary-fixed-variant": "#004395",
+                        "primary-fixed": "#dae2fd",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#adc6ff",
+                        "on-surface-variant": "#45464d",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-background": "#191c1e",
+                        "surface-dim": "#d8dadc",
+                        "on-surface": "#191c1e",
+                        "on-secondary-fixed": "#002113",
+                        "outline": "#76777d",
+                        "inverse-on-surface": "#eff1f3",
+                        "primary": "#000000",
+                        "on-secondary-fixed-variant": "#005236",
+                        "tertiary": "#000000",
+                        "secondary-fixed-dim": "#4edea3",
+                        "surface-container-low": "#f2f4f6",
+                        "surface-bright": "#f7f9fb",
+                        "outline-variant": "#c6c6cd",
+                        "inverse-surface": "#2d3133",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#565e74",
+                        "secondary": "#006c49",
+                        "error-container": "#ffdad6",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#001a42",
+                        "surface-container-high": "#e6e8ea",
+                        "primary-container": "#131b2e",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-container": "#00714d",
+                        "error": "#ba1a1a",
+                        "surface-container": "#eceef0",
+                        "surface": "#f7f9fb",
+                        "secondary-container": "#6cf8bb",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "secondary-fixed": "#6ffbbe",
+                        "on-error-container": "#93000a",
+                        "background": "#f7f9fb",
+                        "on-primary-container": "#7c839b",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#3980f4",
+                        "on-tertiary-fixed": "#001a42",
+                        "on-primary-fixed": "#131b2e",
+                        "tertiary-fixed": "#d8e2ff",
+                        "inverse-primary": "#bec6e0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "stack-lg": "32px",
+                        "margin-desktop": "48px",
+                        "container-max": "1440px",
+                        "stack-md": "16px",
+                        "stack-sm": "8px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-sm": ["Geist"],
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Geist"],
+                        "headline-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #F8FAFC;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-header {
+            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.8);
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-background">
+<div class="flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<aside class="flex flex-col h-screen p-stack-md bg-surface-container-low dark:bg-surface-container-lowest border-r border-outline-variant dark:border-outline fixed left-0 top-0 w-64 z-40">
+<div class="flex items-center gap-stack-sm mb-stack-lg px-2">
+<div class="w-8 h-8 bg-secondary-container rounded-lg flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined">school</span>
+</div>
+<div>
+<h1 class="text-headline-md font-headline-md font-black text-primary dark:text-on-primary-container leading-none">EduCore AI</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant opacity-70">Admin Terminal</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-stack-sm px-4 py-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-md text-label-md group" href="#">
+<span class="material-symbols-outlined transition-transform group-active:scale-95">dashboard</span>
+                    Dashboard
+                </a>
+<a class="flex items-center gap-stack-sm px-4 py-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-md text-label-md group" href="#">
+<span class="material-symbols-outlined transition-transform group-active:scale-95">group</span>
+                    Students
+                </a>
+<!-- Active Tab: Teachers -->
+<a class="flex items-center gap-stack-sm px-4 py-3 bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg font-bold font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">school</span>
+                    Teachers
+                </a>
+<a class="flex items-center gap-stack-sm px-4 py-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-md text-label-md group" href="#">
+<span class="material-symbols-outlined transition-transform group-active:scale-95">psychology</span>
+                    AI Lesson Planner
+                </a>
+<a class="flex items-center gap-stack-sm px-4 py-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-md text-label-md group" href="#">
+<span class="material-symbols-outlined transition-transform group-active:scale-95">payments</span>
+                    Finance
+                </a>
+</nav>
+<div class="mt-auto space-y-1 pt-stack-lg border-t border-outline-variant">
+<a class="flex items-center gap-stack-sm px-4 py-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">settings</span>
+                    Settings
+                </a>
+<a class="flex items-center gap-stack-sm px-4 py-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">help</span>
+                    Support
+                </a>
+<div class="flex items-center gap-stack-sm px-4 py-4 mt-2 bg-surface-container rounded-xl">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold text-xs">SA</div>
+<div class="overflow-hidden">
+<p class="font-label-md text-label-md font-bold truncate text-on-surface">Admin User</p>
+<p class="font-label-sm text-[10px] text-on-surface-variant uppercase tracking-wider">Super Administrator</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 ml-64 overflow-y-auto flex flex-col">
+<!-- Header Section -->
+<header class="sticky top-0 z-30 flex items-center justify-between px-margin-desktop h-20 bg-surface/80 backdrop-blur-md">
+<div>
+<h2 class="text-headline-md font-headline-md font-bold text-primary">Teacher Management</h2>
+<nav class="flex text-label-sm font-label-sm text-on-surface-variant gap-1 mt-1">
+<a class="hover:text-secondary" href="#">Dashboard</a>
+<span>/</span>
+<span class="text-secondary font-semibold">Teachers</span>
+</nav>
+</div>
+<div class="flex items-center gap-gutter">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant">search</span>
+<input class="pl-10 pr-4 py-2 rounded-lg bg-surface-container-lowest border border-outline-variant focus:ring-2 focus:ring-secondary focus:border-secondary outline-none text-sm w-64 transition-all" placeholder="Global search..." type="text"/>
+</div>
+<button class="bg-secondary text-on-secondary px-stack-md py-2.5 rounded-lg font-label-md text-label-md font-bold flex items-center gap-2 hover:opacity-90 active:scale-95 transition-all shadow-sm">
+<span class="material-symbols-outlined text-[20px]">person_add</span>
+                        Add New Teacher
+                    </button>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="px-margin-desktop pb-stack-lg">
+<!-- Summary Cards (Level 1 Surfaces) -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-stack-lg">
+<div class="bg-surface-container-lowest p-stack-md rounded-2xl border border-outline-variant hover:border-secondary-container transition-all group">
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-bold">Total Teachers</span>
+<div class="w-10 h-10 rounded-xl bg-primary-container/10 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined">groups</span>
+</div>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-[32px] font-bold text-on-surface">48</span>
+<span class="text-secondary font-bold text-xs flex items-center">
+<span class="material-symbols-outlined text-xs">trending_up</span>
+                                +2 this month
+                            </span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-stack-md rounded-2xl border border-outline-variant hover:border-secondary-container transition-all group">
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-bold">On Duty</span>
+<div class="w-10 h-10 rounded-xl bg-secondary-container/20 flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined">how_to_reg</span>
+</div>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-[32px] font-bold text-on-surface">42</span>
+<span class="text-on-surface-variant font-medium text-xs">87.5% capacity</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-stack-md rounded-2xl border border-outline-variant hover:border-secondary-container transition-all group">
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-bold">Departments</span>
+<div class="w-10 h-10 rounded-xl bg-tertiary-container/10 flex items-center justify-center text-on-tertiary-container">
+<span class="material-symbols-outlined">account_tree</span>
+</div>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-[32px] font-bold text-on-surface">8</span>
+<span class="text-on-surface-variant font-medium text-xs">Core Academic Sectors</span>
+</div>
+</div>
+</section>
+<!-- Filter & Table Canvas -->
+<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden shadow-sm">
+<!-- Search & Filters -->
+<div class="p-gutter border-b border-outline-variant flex flex-col md:flex-row items-center justify-between gap-stack-md">
+<div class="relative w-full md:w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant opacity-60">search</span>
+<input class="w-full pl-10 pr-4 py-2.5 bg-surface-container-low border border-outline-variant rounded-xl focus:ring-2 focus:ring-secondary-container outline-none font-label-md" placeholder="Search by name, ID or email..." type="text"/>
+</div>
+<div class="flex items-center gap-stack-sm w-full md:w-auto">
+<select class="bg-surface-container-low border border-outline-variant rounded-xl px-4 py-2.5 text-label-md font-label-md focus:ring-2 focus:ring-secondary-container outline-none cursor-pointer">
+<option>All Departments</option>
+<option>Science</option>
+<option>Humanities</option>
+<option>Arts</option>
+</select>
+<select class="bg-surface-container-low border border-outline-variant rounded-xl px-4 py-2.5 text-label-md font-label-md focus:ring-2 focus:ring-secondary-container outline-none cursor-pointer">
+<option>Active Status</option>
+<option>On Leave</option>
+</select>
+<button class="p-2.5 border border-outline-variant rounded-xl hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</div>
+</div>
+<!-- Data Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/50">
+<th class="px-gutter py-4 font-label-md text-label-md font-bold text-on-surface-variant uppercase tracking-wide border-b border-outline-variant">Teacher Name</th>
+<th class="px-gutter py-4 font-label-md text-label-md font-bold text-on-surface-variant uppercase tracking-wide border-b border-outline-variant">Department</th>
+<th class="px-gutter py-4 font-label-md text-label-md font-bold text-on-surface-variant uppercase tracking-wide border-b border-outline-variant">Subjects Taught</th>
+<th class="px-gutter py-4 font-label-md text-label-md font-bold text-on-surface-variant uppercase tracking-wide border-b border-outline-variant">Qualification</th>
+<th class="px-gutter py-4 font-label-md text-label-md font-bold text-on-surface-variant uppercase tracking-wide border-b border-outline-variant">Status</th>
+<th class="px-gutter py-4 font-label-md text-label-md font-bold text-on-surface-variant uppercase tracking-wide border-b border-outline-variant text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-gutter py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full border-2 border-secondary-container p-0.5">
+<img class="w-full h-full rounded-full object-cover" data-alt="Professional headshot of an African female teacher in a modern office setting, wearing professional attire with a warm, confident expression. Bright lighting and a soft-focus background of a school campus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxc9BSfsnStgT76Ex7KB5iFTf4mzSKPociP8JOe72TF5nCjGPkRU7RroIEoiSMXIeo-pJ_C4gLpcKuP_4K3UnavW7xjAcG_K-YA3ene6htxG5OiMctfQ6vvcASZAZDx7t8Ge7Qt8pE-KcvFMfwicwCIbupChtVvxz1NXJSTjrTudKA3fPRGCsqO_AuzA2N0T4tplcvvpjlmBQH1vjBz_dNX-OHlfTOoIVvxUg5YggskWXw6bLWp-IqNJtlbnQlIJuWS-eMNAbdKYU"/>
+</div>
+<div>
+<p class="font-bold text-on-surface">Sarah Mensah</p>
+<p class="text-xs text-on-surface-variant">sarah.mensah@educore.edu</p>
+</div>
+</div>
+</td>
+<td class="px-gutter py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-primary-container/10 text-primary-container">Science</span>
+</td>
+<td class="px-gutter py-5 text-on-surface-variant text-sm font-medium">Mathematics, Physics</td>
+<td class="px-gutter py-5 text-on-surface-variant text-sm font-label-md">M.Sc. Physics</td>
+<td class="px-gutter py-5">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter bg-secondary-container/30 text-on-secondary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                            Active
+                                        </span>
+</td>
+<td class="px-gutter py-5 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-1.5 text-on-surface-variant hover:text-secondary transition-colors" title="View Profile">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-on-tertiary-fixed-variant transition-colors" title="Edit">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-error transition-colors" title="Archive">
+<span class="material-symbols-outlined text-[20px]">archive</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-gutter py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full border-2 border-outline-variant p-0.5">
+<img class="w-full h-full rounded-full object-cover" data-alt="Portrait of a middle-aged East African male educator with a kind face, wearing a crisp white shirt and spectacles. He is holding a leather folder, standing in a brightly lit library hallway. Professional, sharp corporate photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDJG4K2oy5Y4sJiHcHAvoFUL1p_ax93JWAZC35fLPe-USzNaheR1_PsbS_awY5_d_nIT6k4S1fdu6vSh78OKo3xrKzz_5WxC_7kBR3iNaowIBL7TwgCiDS-De6KZ9oz3OXncddtHoXO4CU_uA5x4JeGGhvW5kmQV2zksH4lff9KtLAOYDAnNADfQsLcntc-HZ-rSUNaUGT2mcfST3RbwYTizUVB-l7FBgeY00m60iwIvMG0Xuxw_zudxXMR7hxQ80_cwcZgxuphs0"/>
+</div>
+<div>
+<p class="font-bold text-on-surface">David Njoroge</p>
+<p class="text-xs text-on-surface-variant">david.n@educore.edu</p>
+</div>
+</div>
+</td>
+<td class="px-gutter py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-tertiary-container/10 text-on-tertiary-container">Humanities</span>
+</td>
+<td class="px-gutter py-5 text-on-surface-variant text-sm font-medium">History, Geography</td>
+<td class="px-gutter py-5 text-on-surface-variant text-sm font-label-md">B.A. Education</td>
+<td class="px-gutter py-5">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter bg-secondary-container/30 text-on-secondary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                            Active
+                                        </span>
+</td>
+<td class="px-gutter py-5 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-1.5 text-on-surface-variant hover:text-secondary transition-colors"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+<button class="p-1.5 text-on-surface-variant hover:text-on-tertiary-fixed-variant transition-colors"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+<button class="p-1.5 text-on-surface-variant hover:text-error transition-colors"><span class="material-symbols-outlined text-[20px]">archive</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-gutter py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full border-2 border-outline-variant p-0.5">
+<img class="w-full h-full rounded-full object-cover" data-alt="A young West African woman with braided hair, dressed in a colorful but professional African-print blazer. She is smiling warmly in a bright classroom environment with digital whiteboards in the background. Modern, bright light-mode aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARtLRT_afxB9H9eWZhBrlsmFi3odDUCTAgvGZBjtWIU1fmQtydflOGTFlxCxqEzM7dcQmQsGlLvB3_u3x33kfSec1xllyHAKmg__QrXgynZAx52eUa6klRa9DxBvkAwS7EF2ploqClBPFea4ZAYZo59tTnyGHdb4L0w2ERmK-FtSzFkd3FBXjEaMerrjP_oJXpxp-_UB8Zq-WJhjexjNm_xO7Fb5nrgmBuhcSe15Jt-Dgc76xHT2rQVPmKWGYvU5NeUwpr6Pa2q9s"/>
+</div>
+<div>
+<p class="font-bold text-on-surface">Amara Okafor</p>
+<p class="text-xs text-on-surface-variant">amara.o@educore.edu</p>
+</div>
+</div>
+</td>
+<td class="px-gutter py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-secondary-container/10 text-on-secondary-container">Arts</span>
+</td>
+<td class="px-gutter py-5 text-on-surface-variant text-sm font-medium">Fine Arts, Music</td>
+<td class="px-gutter py-5 text-on-surface-variant text-sm font-label-md">M.Ed. Arts</td>
+<td class="px-gutter py-5">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter bg-surface-container-highest text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                                            On Leave
+                                        </span>
+</td>
+<td class="px-gutter py-5 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-1.5 text-on-surface-variant hover:text-secondary transition-colors"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+<button class="p-1.5 text-on-surface-variant hover:text-on-tertiary-fixed-variant transition-colors"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+<button class="p-1.5 text-on-surface-variant hover:text-error transition-colors"><span class="material-symbols-outlined text-[20px]">archive</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-gutter py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full border-2 border-secondary-container p-0.5">
+<img class="w-full h-full rounded-full object-cover" data-alt="Portrait of a South African male teacher in his late 30s with short hair and a trimmed beard. He is wearing a formal blue polo shirt, standing in front of a modern school facade with lush greenery. Sunlight casting natural highlights, creating a high-end educational look." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwHURzAJQlHtDOMPo-P0bGweBLsyQPKysC1BPkOG6m_PJkvhu0oV1wZWobTZ0Bf5XH9IdYDH_hFA8piR5zjK6A2V_rzPHKY4c8vZNdvjg5mrax4LT6b6xhHG1HctLvbjrYVdSAhW5otoGeELnpAiV5zA6OaJvJouSzgL0cJfIyrqHhPgAZ5oIs8KinhCevesM_N7GBC_HnNjKmJOMyyI-HZpq7Aurjm-Tik-oucL7fETG78qf8MX6kA9U1IXs6mBCEN-Hj_UjUfi4"/>
+</div>
+<div>
+<p class="font-bold text-on-surface">Kofi Boateng</p>
+<p class="text-xs text-on-surface-variant">kofi.b@educore.edu</p>
+</div>
+</div>
+</td>
+<td class="px-gutter py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-primary-container/10 text-primary-container">Science</span>
+</td>
+<td class="px-gutter py-5 text-on-surface-variant text-sm font-medium">Biology, Chemistry</td>
+<td class="px-gutter py-5 text-on-surface-variant text-sm font-label-md">Ph.D. Education</td>
+<td class="px-gutter py-5">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter bg-secondary-container/30 text-on-secondary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                            Active
+                                        </span>
+</td>
+<td class="px-gutter py-5 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-1.5 text-on-surface-variant hover:text-secondary transition-colors"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+<button class="p-1.5 text-on-surface-variant hover:text-on-tertiary-fixed-variant transition-colors"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+<button class="p-1.5 text-on-surface-variant hover:text-error transition-colors"><span class="material-symbols-outlined text-[20px]">archive</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="px-gutter py-4 bg-surface-container-low border-t border-outline-variant flex items-center justify-between">
+<p class="text-label-sm font-label-sm text-on-surface-variant">Showing 4 of 48 teachers</p>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 border border-outline-variant rounded-lg text-label-sm font-bold opacity-50 cursor-not-allowed">Previous</button>
+<button class="px-3 py-1.5 bg-secondary text-on-secondary rounded-lg text-label-sm font-bold">1</button>
+<button class="px-3 py-1.5 hover:bg-surface-container-high rounded-lg text-label-sm font-bold">2</button>
+<button class="px-3 py-1.5 hover:bg-surface-container-high rounded-lg text-label-sm font-bold">3</button>
+<span class="px-2">...</span>
+<button class="px-3 py-1.5 hover:bg-surface-container-high rounded-lg text-label-sm font-bold">12</button>
+<button class="px-3 py-1.5 border border-outline-variant rounded-lg text-label-sm font-bold hover:bg-surface-container-high">Next</button>
+</div>
+</div>
+</div>
+<!-- AI Insight Module -->
+<section class="mt-stack-lg p-stack-md rounded-2xl border-2 border-transparent relative overflow-hidden bg-surface-container-lowest" style="border-image: linear-gradient(45deg, #006c49, #d8e2ff) 1;">
+<div class="relative z-10 flex flex-col md:flex-row items-center gap-stack-md">
+<div class="w-12 h-12 rounded-full bg-gradient-to-tr from-secondary to-tertiary-fixed-dim flex items-center justify-center text-on-secondary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">psychology</span>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-on-surface">AI Resource Insight</h4>
+<p class="text-sm text-on-surface-variant">Teaching efficiency is currently at 94%. We recommend reviewing the Science department workload as Sarah Mensah is reaching her maximum student-contact hours.</p>
+</div>
+<button class="text-secondary font-bold text-label-md px-4 py-2 rounded-lg hover:bg-secondary-container/20 transition-all">
+                            View Workload Analytics
+                        </button>
+</div>
+</section>
+</div>
+<!-- Footer -->
+<footer class="mt-auto w-full py-stack-lg px-margin-desktop flex flex-col md:flex-row justify-between items-center bg-surface-container-highest dark:bg-inverse-surface border-t border-outline-variant">
+<div class="flex flex-col md:flex-row items-center gap-4">
+<h3 class="text-headline-md font-headline-md font-bold text-primary dark:text-on-primary-container">EduCore AI</h3>
+<p class="font-body-md text-body-md text-on-surface dark:text-inverse-on-surface opacity-70">© 2024 EduCore AI. Powering African Excellence.</p>
+</div>
+<div class="flex items-center gap-stack-md mt-4 md:mt-0">
+<a class="font-body-md text-body-md text-on-surface-variant hover:underline transition-all" href="#">Privacy Policy</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:underline transition-all" href="#">Terms of Service</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:underline transition-all" href="#">Contact Support</a>
+</div>
+</footer>
+</main>
+</div>
+<script>
+        // Simple micro-interaction for active scaling
+        document.querySelectorAll('button, a').forEach(el => {
+            el.addEventListener('mousedown', () => el.classList.add('scale-95'));
+            el.addEventListener('mouseup', () => el.classList.remove('scale-95'));
+            el.addEventListener('mouseleave', () => el.classList.remove('scale-95'));
+        });
+    </script>
+</body></html>

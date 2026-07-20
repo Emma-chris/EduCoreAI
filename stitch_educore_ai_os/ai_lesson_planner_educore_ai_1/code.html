@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Lesson Planner | EduCore AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary": "#ffffff",
+                    "inverse-surface": "#2d3133",
+                    "surface": "#f7f9fb",
+                    "primary": "#000000",
+                    "on-tertiary-fixed-variant": "#004395",
+                    "tertiary": "#000000",
+                    "surface-variant": "#e0e3e5",
+                    "secondary-fixed-dim": "#4edea3",
+                    "primary-fixed-dim": "#bec6e0",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-tertiary": "#ffffff",
+                    "primary-container": "#131b2e",
+                    "on-background": "#191c1e",
+                    "on-primary-fixed": "#131b2e",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-secondary-container": "#00714d",
+                    "error": "#ba1a1a",
+                    "inverse-primary": "#bec6e0",
+                    "outline-variant": "#c6c6cd",
+                    "outline": "#76777d",
+                    "on-tertiary-fixed": "#001a42",
+                    "tertiary-container": "#001a42",
+                    "tertiary-fixed-dim": "#adc6ff",
+                    "on-secondary-fixed-variant": "#005236",
+                    "secondary": "#006c49",
+                    "on-primary-container": "#7c839b",
+                    "on-secondary-fixed": "#002113",
+                    "surface-dim": "#d8dadc",
+                    "inverse-on-surface": "#eff1f3",
+                    "secondary-fixed": "#6ffbbe",
+                    "tertiary-fixed": "#d8e2ff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#e6e8ea",
+                    "surface-container": "#eceef0",
+                    "on-surface": "#191c1e",
+                    "on-primary": "#ffffff",
+                    "on-surface-variant": "#45464d",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "surface-container-low": "#f2f4f6",
+                    "background": "#f7f9fb",
+                    "primary-fixed": "#dae2fd",
+                    "surface-bright": "#f7f9fb",
+                    "secondary-container": "#6cf8bb",
+                    "surface-tint": "#565e74",
+                    "on-tertiary-container": "#3980f4",
+                    "on-error-container": "#93000a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "2xl": "1rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "margin-desktop": "48px",
+                    "container-max": "1440px",
+                    "stack-lg": "32px",
+                    "base": "4px",
+                    "stack-md": "16px",
+                    "stack-sm": "8px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-md": ["Geist"],
+                    "display-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-sm": ["Geist"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .geist-mono { font-family: 'Geist', monospace; }
+        
+        .ai-border-glow {
+            border: 1.5px solid transparent;
+            background: linear-gradient(theme('colors.surface-container-lowest'), theme('colors.surface-container-lowest')) padding-box,
+                        linear-gradient(45deg, theme('colors.secondary'), theme('colors.on-tertiary-container')) border-box;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid theme('colors.outline-variant');
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low border-r border-outline-variant flex flex-col p-stack-md z-40">
+<div class="mb-stack-lg px-2">
+<h1 class="text-headline-md font-black text-primary tracking-tight">EduCore AI</h1>
+<p class="text-label-sm text-on-surface-variant uppercase tracking-widest opacity-70">Admin Terminal</p>
+</div>
+<nav class="flex-grow space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">group</span>
+                Students
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">school</span>
+                Teachers
+            </a>
+<!-- Active Tab -->
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container rounded-lg font-bold transition-all font-label-md text-label-md scale-95 origin-left" href="#">
+<span class="material-symbols-outlined">psychology</span>
+                AI Lesson Planner
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">payments</span>
+                Finance
+            </a>
+</nav>
+<div class="pt-4 border-t border-outline-variant space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">help</span>
+                Support
+            </a>
+<div class="mt-4 p-4 rounded-xl bg-surface-container-highest flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-white">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div class="overflow-hidden">
+<p class="text-label-md font-bold truncate">Admin User</p>
+<p class="text-label-sm text-on-surface-variant truncate">Principal's Office</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen p-margin-desktop">
+<!-- Top Row / Header -->
+<header class="mb-stack-lg flex justify-between items-end">
+<div>
+<nav class="flex items-center gap-2 text-label-sm text-on-surface-variant mb-2">
+<span>Platform</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span>AI Suite</span>
+</nav>
+<h2 class="text-headline-lg font-headline-lg text-primary">AI Lesson Planner</h2>
+</div>
+<div class="flex gap-stack-sm">
+<button class="flex items-center gap-2 px-4 py-2 border border-outline text-on-surface rounded-lg font-label-md text-label-md hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">history</span>
+                    View History
+                </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-secondary text-on-secondary rounded-lg font-label-md text-label-md hover:opacity-90 transition-all shadow-sm">
+<span class="material-symbols-outlined">add</span>
+                    New Template
+                </button>
+</div>
+</header>
+<!-- Two Column Layout -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Left Column: Generator Form -->
+<section class="col-span-12 lg:col-span-5 space-y-stack-md">
+<div class="bg-surface-container-lowest p-stack-lg rounded-2xl border border-outline-variant ai-border-glow shadow-sm">
+<div class="flex items-center gap-3 mb-stack-md">
+<div class="w-8 h-8 rounded bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container text-[20px]">auto_awesome</span>
+</div>
+<h3 class="text-headline-md font-headline-md text-primary">Plan Parameters</h3>
+</div>
+<form class="space-y-stack-md" id="plannerForm">
+<div class="space-y-1">
+<label class="font-label-md text-label-md text-on-surface-variant px-1">Subject</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">book</span>
+<input class="w-full pl-10 pr-4 py-3 bg-white border border-outline-variant rounded-xl focus:ring-2 focus:ring-secondary-container focus:border-secondary outline-none transition-all font-body-md text-body-md" placeholder="e.g. Mathematics" type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1">
+<label class="font-label-md text-label-md text-on-surface-variant px-1">Grade Level</label>
+<select class="w-full px-4 py-3 bg-white border border-outline-variant rounded-xl focus:ring-2 focus:ring-secondary-container focus:border-secondary outline-none transition-all font-body-md text-body-md appearance-none">
+<option>JSS 1</option>
+<option>JSS 2</option>
+<option>JSS 3</option>
+<option>SSS 1</option>
+<option>SSS 2</option>
+<option>SSS 3</option>
+</select>
+</div>
+<div class="space-y-1">
+<label class="font-label-md text-label-md text-on-surface-variant px-1">Curriculum</label>
+<select class="w-full px-4 py-3 bg-white border border-outline-variant rounded-xl focus:ring-2 focus:ring-secondary-container focus:border-secondary outline-none transition-all font-body-md text-body-md appearance-none">
+<option>NERDC Standard</option>
+<option>British National</option>
+<option>Custom Board</option>
+</select>
+</div>
+</div>
+<div class="space-y-1">
+<label class="font-label-md text-label-md text-on-surface-variant px-1">Week / Topic</label>
+<input class="w-full px-4 py-3 bg-white border border-outline-variant rounded-xl focus:ring-2 focus:ring-secondary-container focus:border-secondary outline-none transition-all font-body-md text-body-md" placeholder="e.g. Week 4: Quadratic Equations" type="text"/>
+</div>
+<div class="space-y-1">
+<label class="font-label-md text-label-md text-on-surface-variant px-1">Focus Areas (Optional)</label>
+<textarea class="w-full px-4 py-3 bg-white border border-outline-variant rounded-xl focus:ring-2 focus:ring-secondary-container focus:border-secondary outline-none transition-all font-body-md text-body-md resize-none" placeholder="Emphasize visual aids and real-world banking examples..." rows="3"></textarea>
+</div>
+<div class="pt-stack-sm">
+<button class="w-full group relative overflow-hidden bg-primary text-on-primary py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-all active:scale-95" onclick="generatePlan()" type="button">
+<span class="material-symbols-outlined animate-pulse">generating_tokens</span>
+                                Generate Plan
+                                <div class="absolute inset-0 bg-gradient-to-r from-secondary/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+</button>
+</div>
+</form>
+</div>
+<!-- Stats/Tips Section -->
+<div class="bg-primary-container text-on-primary-container p-stack-md rounded-2xl flex items-start gap-4">
+<span class="material-symbols-outlined text-secondary-container">tips_and_updates</span>
+<div>
+<p class="font-bold text-label-md mb-1">Pro Tip: Use specific topics</p>
+<p class="text-label-sm opacity-80">Including sub-topics like "Pythagoras Theorem in Navigation" yields more accurate assessments.</p>
+</div>
+</div>
+</section>
+<!-- Right Column: Preview Area -->
+<section class="col-span-12 lg:col-span-7 h-full min-h-[600px] flex flex-col">
+<div class="flex-grow bg-white border border-outline-variant rounded-2xl flex flex-col relative overflow-hidden transition-all duration-500" id="previewArea">
+<!-- Empty State / Placeholder -->
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center p-stack-lg z-10 transition-opacity duration-300" id="emptyState">
+<div class="w-24 h-24 mb-stack-md rounded-full bg-surface-container flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-[48px]">description</span>
+</div>
+<h4 class="text-headline-md font-headline-md text-on-surface mb-2">Ready to Plan?</h4>
+<p class="text-body-md text-on-surface-variant max-w-sm">Fill in the subject and topic details on the left and click 'Generate Plan' to see the AI magic.</p>
+</div>
+<!-- Output Preview (Hidden by default) -->
+<div class="hidden h-full flex flex-col overflow-y-auto" id="planContent">
+<div class="p-8 border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<div>
+<span class="text-label-sm font-bold text-secondary uppercase tracking-widest">Draft Generated</span>
+<h3 class="text-headline-md font-bold mt-1">Mathematics: Quadratic Equations</h3>
+</div>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors"><span class="material-symbols-outlined">download</span></button>
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors"><span class="material-symbols-outlined">print</span></button>
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors"><span class="material-symbols-outlined">share</span></button>
+</div>
+</div>
+<div class="p-10 space-y-10">
+<!-- Section: Objectives -->
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<span class="w-8 h-8 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant flex items-center justify-center font-bold text-sm">01</span>
+<h5 class="text-label-md font-black uppercase text-on-surface-variant tracking-wider">Learning Objectives</h5>
+</div>
+<ul class="list-disc ml-14 text-body-md space-y-2 text-on-surface">
+<li>Identify the standard form of a quadratic equation (ax² + bx + c = 0).</li>
+<li>Distinguish between linear and quadratic expressions.</li>
+<li>Solve basic quadratic equations using the factorization method.</li>
+</ul>
+</div>
+<!-- Section: Materials -->
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<span class="w-8 h-8 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant flex items-center justify-center font-bold text-sm">02</span>
+<h5 class="text-label-md font-black uppercase text-on-surface-variant tracking-wider">Required Materials</h5>
+</div>
+<div class="ml-14 grid grid-cols-2 gap-4">
+<div class="flex items-center gap-3 p-3 border border-outline-variant rounded-xl bg-surface">
+<span class="material-symbols-outlined text-on-secondary-container">draw</span>
+<span class="text-label-md">Graph Boards</span>
+</div>
+<div class="flex items-center gap-3 p-3 border border-outline-variant rounded-xl bg-surface">
+<span class="material-symbols-outlined text-on-secondary-container">calculate</span>
+<span class="text-label-md">Scientific Calculators</span>
+</div>
+</div>
+</div>
+<!-- Section: Activities -->
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<span class="w-8 h-8 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant flex items-center justify-center font-bold text-sm">03</span>
+<h5 class="text-label-md font-black uppercase text-on-surface-variant tracking-wider">Lesson Activities</h5>
+</div>
+<div class="ml-14 space-y-4">
+<div class="relative pl-6 border-l-2 border-secondary-container">
+<p class="font-bold text-label-md text-secondary">Introduction (10 mins)</p>
+<p class="text-body-md text-on-surface-variant">Hook students with a real-world projectile motion example (throwing a ball) to visualize the curve.</p>
+</div>
+<div class="relative pl-6 border-l-2 border-secondary-container">
+<p class="font-bold text-label-md text-secondary">Main Activity (25 mins)</p>
+<p class="text-body-md text-on-surface-variant">Interactive step-by-step factorization workshop. Students solve 5 problems in pairs.</p>
+</div>
+</div>
+</div>
+<!-- Section: Assessment -->
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<span class="w-8 h-8 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant flex items-center justify-center font-bold text-sm">04</span>
+<h5 class="text-label-md font-black uppercase text-on-surface-variant tracking-wider">Assessment</h5>
+</div>
+<div class="ml-14 p-4 rounded-xl bg-surface border border-dashed border-outline">
+<p class="font-label-md font-bold mb-2">Quiz Questions:</p>
+<p class="text-body-md italic text-on-surface-variant">"Factorize x² + 5x + 6 = 0 and find the values of x."</p>
+</div>
+</div>
+</div>
+<div class="mt-auto p-6 bg-surface-container-high flex justify-center">
+<button class="px-8 py-3 bg-primary text-on-primary rounded-full font-bold flex items-center gap-2 hover:scale-105 transition-transform">
+<span class="material-symbols-outlined">save</span>
+                                Save to Library
+                            </button>
+</div>
+</div>
+<!-- Generating Loader (Hidden) -->
+<div class="hidden absolute inset-0 bg-white/80 backdrop-blur-sm z-20 flex flex-col items-center justify-center" id="loader">
+<div class="relative w-20 h-20">
+<div class="absolute inset-0 border-4 border-secondary-container rounded-full opacity-30"></div>
+<div class="absolute inset-0 border-4 border-t-secondary rounded-full animate-spin"></div>
+</div>
+<p class="mt-6 text-headline-md font-bold text-primary animate-pulse">Architecting Plan...</p>
+<p class="text-label-md text-on-surface-variant">Analyzing NERDC curriculum standards</p>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Success Toast (Hidden) -->
+<div class="fixed bottom-8 right-8 flex items-center gap-4 bg-inverse-surface text-inverse-on-surface px-6 py-4 rounded-2xl shadow-2xl translate-y-24 opacity-0 transition-all duration-500 z-50" id="successToast">
+<span class="material-symbols-outlined text-secondary-fixed">check_circle</span>
+<div>
+<p class="font-bold text-label-md">Lesson Plan Ready!</p>
+<p class="text-label-sm opacity-80">Draft has been added to your workspace.</p>
+</div>
+</div>
+<script>
+        function generatePlan() {
+            const emptyState = document.getElementById('emptyState');
+            const planContent = document.getElementById('planContent');
+            const loader = document.getElementById('loader');
+            const toast = document.getElementById('successToast');
+
+            // 1. Hide empty state
+            emptyState.style.opacity = '0';
+            
+            // 2. Show loader
+            setTimeout(() => {
+                emptyState.classList.add('hidden');
+                loader.classList.remove('hidden');
+                loader.classList.add('flex');
+            }, 300);
+
+            // 3. Simulate generation time
+            setTimeout(() => {
+                loader.classList.remove('flex');
+                loader.classList.add('hidden');
+                planContent.classList.remove('hidden');
+                
+                // Show toast
+                toast.classList.remove('translate-y-24', 'opacity-0');
+                
+                setTimeout(() => {
+                    toast.classList.add('translate-y-24', 'opacity-0');
+                }, 4000);
+            }, 2500);
+        }
+
+        // Sidebar link interactions
+        document.querySelectorAll('aside nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (!this.classList.contains('bg-secondary-container')) {
+                    // This is just visual feedback
+                    this.classList.add('scale-95');
+                    setTimeout(() => this.classList.remove('scale-95'), 150);
+                }
+            });
+        });
+    </script>
+</body></html>

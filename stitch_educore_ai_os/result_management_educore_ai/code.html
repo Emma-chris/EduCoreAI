@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EduCore AI - Results Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist:wght@400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "surface-container-lowest": "#ffffff",
+                "tertiary-fixed": "#d8e2ff",
+                "secondary-fixed": "#6ffbbe",
+                "inverse-on-surface": "#eff1f3",
+                "surface-dim": "#d8dadc",
+                "secondary": "#006c49",
+                "on-secondary-fixed": "#002113",
+                "on-primary-container": "#7c839b",
+                "on-surface-variant": "#45464d",
+                "on-primary-fixed-variant": "#3f465c",
+                "on-primary": "#ffffff",
+                "surface-container": "#eceef0",
+                "on-surface": "#191c1e",
+                "surface-container-high": "#e6e8ea",
+                "primary-fixed": "#dae2fd",
+                "background": "#f7f9fb",
+                "surface-container-low": "#f2f4f6",
+                "on-error-container": "#93000a",
+                "on-tertiary-container": "#3980f4",
+                "surface-tint": "#565e74",
+                "secondary-container": "#6cf8bb",
+                "surface-bright": "#f7f9fb",
+                "tertiary": "#000000",
+                "on-tertiary-fixed-variant": "#004395",
+                "primary": "#000000",
+                "surface": "#f7f9fb",
+                "on-secondary": "#ffffff",
+                "inverse-surface": "#2d3133",
+                "error-container": "#ffdad6",
+                "on-error": "#ffffff",
+                "primary-fixed-dim": "#bec6e0",
+                "surface-variant": "#e0e3e5",
+                "secondary-fixed-dim": "#4edea3",
+                "surface-container-highest": "#e0e3e5",
+                "on-primary-fixed": "#131b2e",
+                "on-background": "#191c1e",
+                "primary-container": "#131b2e",
+                "on-tertiary": "#ffffff",
+                "tertiary-fixed-dim": "#adc6ff",
+                "tertiary-container": "#001a42",
+                "on-secondary-fixed-variant": "#005236",
+                "on-tertiary-fixed": "#001a42",
+                "outline": "#76777d",
+                "outline-variant": "#c6c6cd",
+                "inverse-primary": "#bec6e0",
+                "error": "#ba1a1a",
+                "on-secondary-container": "#00714d"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "2xl": "1rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "margin-mobile": "16px",
+                "gutter": "24px",
+                "margin-desktop": "48px",
+                "container-max": "1440px",
+                "stack-lg": "32px",
+                "stack-md": "16px",
+                "base": "4px",
+                "stack-sm": "8px"
+            },
+            "fontFamily": {
+                "label-sm": ["Geist"],
+                "headline-lg-mobile": ["Inter"],
+                "body-lg": ["Inter"],
+                "headline-lg": ["Inter"],
+                "body-md": ["Inter"],
+                "label-md": ["Geist"],
+                "display-lg": ["Inter"],
+                "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f7f9fb;
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #e0e3e5;
+        border-radius: 10px;
+      }
+      .ai-gradient-border {
+        position: relative;
+        background: #ffffff;
+        border: 1px solid transparent;
+        background-clip: padding-box;
+      }
+      .ai-gradient-border::before {
+        content: "";
+        position: absolute;
+        top: -1px; left: -1px; right: -1px; bottom: -1px;
+        z-index: -1;
+        border-radius: inherit;
+        background: linear-gradient(135deg, #006c49, #3980f4);
+        opacity: 0.4;
+      }
+    </style>
+</head>
+<body class="text-on-surface">
+<div class="flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<aside class="flex flex-col h-screen p-stack-md fixed left-0 top-0 w-64 bg-surface-container-low border-r border-outline-variant z-50">
+<div class="mb-10 px-4">
+<h1 class="text-headline-md font-headline-md font-black text-primary">EduCore AI</h1>
+<p class="text-label-md font-label-md text-on-surface-variant opacity-70">Admin Terminal</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container rounded-lg font-bold transition-transform duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-label-md text-label-md">Students</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="font-label-md text-label-md">Teachers</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+<span class="font-label-md text-label-md">AI Lesson Planner</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-label-md text-label-md">Finance</span>
+</a>
+</nav>
+<div class="mt-auto space-y-2 pt-4 border-t border-outline-variant">
+<button class="w-full mb-4 py-3 bg-secondary text-on-secondary rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm">add</span>
+                    Generate Plan
+                </button>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 ml-64 overflow-y-auto custom-scrollbar bg-surface flex flex-col">
+<!-- TopNavBar -->
+<header class="sticky top-0 w-full z-40 flex justify-between items-center px-margin-desktop h-16 bg-surface border-b border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="text-on-surface-variant text-label-md font-label-md">Dashboard</span>
+<span class="text-outline-variant">/</span>
+<span class="text-on-surface text-label-md font-bold">Results</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-on-surface-variant">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-label-md focus:ring-2 focus:ring-secondary w-64" placeholder="Search student or admission #..." type="text"/>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-2 bg-secondary text-on-secondary rounded-full font-bold text-label-md hover:opacity-90 transition-all active:opacity-80">
+                            Book Demo
+                        </button>
+<button class="px-6 py-2 border border-outline-variant text-primary rounded-full font-bold text-label-md hover:bg-surface-container-low transition-all">
+                            Login
+                        </button>
+</div>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="p-margin-desktop space-y-stack-lg max-w-container-max mx-auto w-full">
+<!-- Page Title & Primary Action -->
+<div class="flex justify-between items-end">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-primary">Student Results Management</h2>
+<p class="text-body-md text-on-surface-variant">Enter, manage, and analyze student performance for the current term.</p>
+</div>
+<button class="flex items-center gap-2 bg-secondary text-white px-6 py-3 rounded-xl font-bold hover:shadow-lg transition-all active:scale-95">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">description</span>
+                        Generate All Reports
+                    </button>
+</div>
+<!-- Summary Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="bg-surface-container-lowest p-stack-md rounded-2xl border border-outline-variant flex items-center gap-4">
+<div class="h-12 w-12 rounded-xl bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined">analytics</span>
+</div>
+<div>
+<p class="text-label-md text-on-surface-variant">Average Class Score</p>
+<h3 class="text-headline-md font-bold text-secondary">74.5%</h3>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-stack-md rounded-2xl border border-outline-variant flex items-center gap-4">
+<div class="h-12 w-12 rounded-xl bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed-variant">
+<span class="material-symbols-outlined">verified</span>
+</div>
+<div>
+<p class="text-label-md text-on-surface-variant">Pass Rate</p>
+<h3 class="text-headline-md font-bold text-on-tertiary-container">88%</h3>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-stack-md rounded-2xl border border-outline-variant flex items-center gap-4">
+<img class="h-12 w-12 rounded-xl object-cover bg-surface-container" data-alt="A professional headshot of an African boy in a school uniform, smiling with confidence, high-quality photography, soft studio lighting, blurred academic background, corporate edutech style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBx4LTka1gV7QxGr33h5JKxxGNwWLIFwD87ZExDDx3VU_nLdbj5waGAmymkO2a2n88XSBKZYaHIKPofaKC6ISL5CIkjrM71OMgJGSP2uWCYqyIF_Gvo02fKenhIkJZHJrxt9qXNHLTYME5sMHDD4UR6KCPo95JgQK-WoxTqJlzcuEbxQD-AYyLxfoyjHQihvW_o3wfk_bnoL9n3C2ee1X_orDA4VLBd6MkPta6tOK4h7TwZ6b7CvFdrDnJ4Q1b619ZoVEpxnPK5Ck"/>
+<div>
+<p class="text-label-md text-on-surface-variant">Top Performer</p>
+<h3 class="text-headline-md font-bold text-primary">Kofi Owusu</h3>
+</div>
+</div>
+</div>
+<!-- Filter Section -->
+<div class="bg-surface-container-low p-stack-md rounded-2xl border border-outline-variant flex flex-wrap gap-4 items-center">
+<div class="flex-1 min-w-[200px]">
+<label class="block text-label-sm text-on-surface-variant mb-1 ml-1">Select Class</label>
+<select class="w-full bg-surface border-outline-variant rounded-lg text-body-md py-2 px-3 focus:ring-secondary">
+<option>JSS 1-A</option>
+<option>JSS 1-B</option>
+<option>JSS 2-A</option>
+</select>
+</div>
+<div class="flex-1 min-w-[200px]">
+<label class="block text-label-sm text-on-surface-variant mb-1 ml-1">Select Term</label>
+<select class="w-full bg-surface border-outline-variant rounded-lg text-body-md py-2 px-3 focus:ring-secondary">
+<option>First Term</option>
+<option>Second Term</option>
+<option>Third Term</option>
+</select>
+</div>
+<div class="flex-1 min-w-[200px]">
+<label class="block text-label-sm text-on-surface-variant mb-1 ml-1">Select Subject</label>
+<select class="w-full bg-surface border-outline-variant rounded-lg text-body-md py-2 px-3 focus:ring-secondary">
+<option>Mathematics</option>
+<option>English Language</option>
+<option>Integrated Science</option>
+</select>
+</div>
+<button class="self-end px-6 py-2.5 h-[42px] border border-outline text-on-surface rounded-lg font-bold flex items-center gap-2 hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined">filter_list</span>
+                        Filters
+                    </button>
+</div>
+<!-- Result Table Card -->
+<div class="bg-white rounded-2xl border border-outline-variant overflow-hidden">
+<div class="p-stack-md border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest">
+<h3 class="text-body-lg font-bold">Class List - Mathematics</h3>
+<div class="flex gap-2">
+<button class="ai-gradient-border px-4 py-2 rounded-lg text-label-md font-bold text-secondary flex items-center gap-2 hover:opacity-80 transition-all">
+<span class="material-symbols-outlined text-[20px]">auto_awesome</span>
+                                Bulk AI Comments
+                            </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant border-b border-outline-variant">
+<th class="px-6 py-4 font-label-md text-label-md">Student Name</th>
+<th class="px-6 py-4 font-label-md text-label-md">Admission #</th>
+<th class="px-6 py-4 font-label-md text-label-md">CA (40)</th>
+<th class="px-6 py-4 font-label-md text-label-md">Exam (60)</th>
+<th class="px-6 py-4 font-label-md text-label-md">Total</th>
+<th class="px-6 py-4 font-label-md text-label-md">Grade</th>
+<th class="px-6 py-4 font-label-md text-label-md">AI Insights</th>
+<th class="px-6 py-4 font-label-md text-label-md text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<img class="h-10 w-10 rounded-full object-cover" data-alt="A portrait of a young student girl, focused and serious, wearing a neat school uniform, warm natural lighting, professional portrait, soft-focus background, clean academic aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcRbyBbHEMwS6PFbmVanDH8iVqQ35TzUBY-GhWUMAWhA26G_mwJ3vpQbVZeYsFnwHEDkQ_IA65krRJEQonzFmM2y4bj6k-alH14_R90kwSKabY7aoWz--fvc0b-ELT4is9HApwOCayVttnBt8c5Nw7ZTxUj7XVbkJZMur0qT8Kznq3B3D59zyttVA8Xq87miH9dseZgUDUezKBpBe8hIBb97Y0QQ2uGLt9Cma74DOgMG4Wqi5u7F-nYGB7wyfwxSPD4QzhgvVBWQE"/>
+<div>
+<p class="font-bold text-body-md">Kofi Owusu</p>
+<p class="text-label-sm text-on-surface-variant">Male</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-label-md text-on-surface-variant">EDU-2024-001</td>
+<td class="px-6 py-4">
+<input class="w-16 bg-surface-container border-none rounded text-center font-bold focus:ring-2 focus:ring-secondary py-1" type="number" value="38"/>
+</td>
+<td class="px-6 py-4">
+<input class="w-16 bg-surface-container border-none rounded text-center font-bold focus:ring-2 focus:ring-secondary py-1" type="number" value="56"/>
+</td>
+<td class="px-6 py-4">
+<span class="font-bold text-secondary">94</span>
+</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full text-label-sm font-bold">A1</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2 text-on-tertiary-container group cursor-pointer">
+<span class="material-symbols-outlined text-[18px]">psychology</span>
+<span class="text-label-sm italic truncate max-w-[150px]">Excellent logical reasoning...</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 hover:bg-surface-container rounded-lg text-on-surface-variant"><span class="material-symbols-outlined">visibility</span></button>
+<button class="p-2 hover:bg-surface-container rounded-lg text-on-surface-variant"><span class="material-symbols-outlined">edit</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<img class="h-10 w-10 rounded-full object-cover" data-alt="A portrait of a primary school student, smiling cheerfully, school uniform, bright and airy lighting, vibrant corporate colors, high-end photography, educational setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDn2NO0iVHwYE_GPNYQ2N1u9tcDLFCzyRRKwjW8A9D0jUXQao1mLJO1FwpUmwNKB6QbWZWuVmtOE8WxPP596feqXOTojIXIWLBj-4NSACG2vDLkvSX3A3QvdwoIh3Y9aJmrfnp-8MMdnGMfwuhrGj3AKqNqg6zKdIx8g9wjd32DS2xxwNfVsDEqR1-BSoMG5D7VDW97a10x_IY-ACx7gt6dDBFlri_xtEqU5RV39QoQgCmaoY1WjS4S3Wd9YPkJeN0vOywh0xR9bjE"/>
+<div>
+<p class="font-bold text-body-md">Amara Okafor</p>
+<p class="text-label-sm text-on-surface-variant">Female</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-label-md text-on-surface-variant">EDU-2024-042</td>
+<td class="px-6 py-4">
+<input class="w-16 bg-surface-container border-none rounded text-center font-bold focus:ring-2 focus:ring-secondary py-1" type="number" value="28"/>
+</td>
+<td class="px-6 py-4">
+<input class="w-16 bg-surface-container border-none rounded text-center font-bold focus:ring-2 focus:ring-secondary py-1" type="number" value="42"/>
+</td>
+<td class="px-6 py-4">
+<span class="font-bold text-primary">70</span>
+</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-surface-container-high text-on-surface rounded-full text-label-sm font-bold">B2</span>
+</td>
+<td class="px-6 py-4">
+<button class="flex items-center gap-1 text-on-primary-container hover:text-secondary transition-colors text-label-sm">
+<span class="material-symbols-outlined text-[16px]">add_comment</span>
+                                            Generate
+                                        </button>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 hover:bg-surface-container rounded-lg text-on-surface-variant"><span class="material-symbols-outlined">visibility</span></button>
+<button class="p-2 hover:bg-surface-container rounded-lg text-on-surface-variant"><span class="material-symbols-outlined">edit</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<img class="h-10 w-10 rounded-full object-cover" data-alt="A portrait of a male student with glasses, looking thoughtful, school campus background with soft bokeh, clean and minimal aesthetic, professional lighting, corporate education style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkg7UA0p4bK4SYR4nVXmR2Mu81HPPo1uq8ewU2wM8qIUeKjqtPXdzrS0dvdeF6j5Mdfrrz6s5McbnHeIWqUL60H1_XusV60qsbsPM7Iim7L9a3Zc8gqFu36kbYLueWXLGmGk4R2bzeYWk30sCyH5C9A8oh6SyUh6CtSrak-vsgZ9-QwM_VsQA1dBprMueqxNDZ8FrmIlkJw1jxBoRZ27ytpv-FDVQPr5q5VSaGYWiBnPomF7dIf1kRnabivb7gDhTHzNamcBA1DSI"/>
+<div>
+<p class="font-bold text-body-md">Moussa Diop</p>
+<p class="text-label-sm text-on-surface-variant">Male</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-label-md text-on-surface-variant">EDU-2024-015</td>
+<td class="px-6 py-4">
+<input class="w-16 bg-surface-container border-none rounded text-center font-bold focus:ring-2 focus:ring-secondary py-1" type="number" value="15"/>
+</td>
+<td class="px-6 py-4">
+<input class="w-16 bg-surface-container border-none rounded text-center font-bold focus:ring-2 focus:ring-secondary py-1" type="number" value="25"/>
+</td>
+<td class="px-6 py-4">
+<span class="font-bold text-error">40</span>
+</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-error-container text-on-error-container rounded-full text-label-sm font-bold">F9</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2 text-error group cursor-pointer">
+<span class="material-symbols-outlined text-[18px]">warning</span>
+<span class="text-label-sm italic truncate max-w-[150px]">At risk. Needs intervention.</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 hover:bg-surface-container rounded-lg text-on-surface-variant"><span class="material-symbols-outlined">visibility</span></button>
+<button class="p-2 hover:bg-surface-container rounded-lg text-on-surface-variant"><span class="material-symbols-outlined">edit</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-stack-md bg-surface-container-low border-t border-outline-variant flex justify-between items-center">
+<span class="text-label-md text-on-surface-variant">Showing 1-10 of 42 students</span>
+<div class="flex gap-2">
+<button class="px-4 py-2 border border-outline-variant rounded-lg bg-white hover:bg-surface transition-colors"><span class="material-symbols-outlined">chevron_left</span></button>
+<button class="px-4 py-2 border border-outline-variant rounded-lg bg-white hover:bg-surface transition-colors"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+</div>
+</div>
+<!-- Footer Component -->
+<footer class="w-full py-stack-lg flex flex-col md:flex-row justify-between items-center border-t border-outline-variant mt-10">
+<p class="text-body-md text-on-surface-variant">© 2024 EduCore AI. Powering African Excellence.</p>
+<div class="flex gap-6 mt-4 md:mt-0">
+<a class="text-body-md text-on-surface-variant hover:underline transition-all" href="#">Privacy Policy</a>
+<a class="text-body-md text-on-surface-variant hover:underline transition-all" href="#">Terms of Service</a>
+<a class="text-body-md text-on-surface-variant hover:underline transition-all" href="#">Contact Support</a>
+</div>
+</footer>
+</div>
+</main>
+</div>
+<!-- Micro-interactions Script -->
+<script>
+        // Auto-calculation logic mock
+        document.querySelectorAll('input[type="number"]').forEach(input => {
+            input.addEventListener('input', function() {
+                const row = this.closest('tr');
+                const ca = parseInt(row.querySelectorAll('input')[0].value) || 0;
+                const exam = parseInt(row.querySelectorAll('input')[1].value) || 0;
+                const total = ca + exam;
+                const totalDisplay = row.querySelector('.font-bold.text-secondary, .font-bold.text-primary, .font-bold.text-error');
+                
+                if (totalDisplay) {
+                    totalDisplay.textContent = total;
+                    
+                    // Grade Logic
+                    const gradeSpan = row.querySelector('.rounded-full.text-label-sm');
+                    if (total >= 80) {
+                        gradeSpan.textContent = 'A1';
+                        gradeSpan.className = 'px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full text-label-sm font-bold';
+                        totalDisplay.className = 'font-bold text-secondary';
+                    } else if (total >= 60) {
+                        gradeSpan.textContent = 'B2';
+                        gradeSpan.className = 'px-3 py-1 bg-surface-container-high text-on-surface rounded-full text-label-sm font-bold';
+                        totalDisplay.className = 'font-bold text-primary';
+                    } else {
+                        gradeSpan.textContent = 'F9';
+                        gradeSpan.className = 'px-3 py-1 bg-error-container text-on-error-container rounded-full text-label-sm font-bold';
+                        totalDisplay.className = 'font-bold text-error';
+                    }
+                }
+            });
+        });
+
+        // AI Insight Toggle Mock
+        document.querySelectorAll('.ai-gradient-border').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.classList.add('animate-pulse');
+                setTimeout(() => {
+                    btn.classList.remove('animate-pulse');
+                    alert('AI Analysis Complete: 42 report comments generated successfully.');
+                }, 1500);
+            });
+        });
+    </script>
+</body></html>

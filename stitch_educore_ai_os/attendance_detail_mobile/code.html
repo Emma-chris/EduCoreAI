@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Attendance Detail - EduCore AI</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Geist:wght@400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<!-- Design System Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed": "#dae2fd",
+                    "surface": "#f7f9fb",
+                    "surface-container-low": "#f2f4f6",
+                    "outline": "#76777d",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed-dim": "#adc6ff",
+                    "secondary-fixed": "#6ffbbe",
+                    "secondary-fixed-dim": "#4edea3",
+                    "on-surface": "#191c1e",
+                    "primary-fixed-dim": "#bec6e0",
+                    "tertiary": "#000000",
+                    "inverse-primary": "#bec6e0",
+                    "on-tertiary": "#ffffff",
+                    "primary": "#000000",
+                    "on-surface-variant": "#45464d",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-container": "#6cf8bb",
+                    "on-tertiary-container": "#3980f4",
+                    "on-secondary-container": "#00714d",
+                    "surface-container-highest": "#e0e3e5",
+                    "tertiary-fixed": "#d8e2ff",
+                    "surface-bright": "#f7f9fb",
+                    "on-error": "#ffffff",
+                    "inverse-surface": "#2d3133",
+                    "surface-container": "#eceef0",
+                    "on-background": "#191c1e",
+                    "primary-container": "#131b2e",
+                    "surface-tint": "#565e74",
+                    "background": "#f7f9fb",
+                    "error": "#ba1a1a",
+                    "surface-container-high": "#e6e8ea",
+                    "error-container": "#ffdad6",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "outline-variant": "#c6c6cd",
+                    "on-tertiary-fixed": "#001a42",
+                    "on-primary-container": "#7c839b",
+                    "surface-variant": "#e0e3e5",
+                    "on-secondary-fixed": "#002113",
+                    "on-tertiary-fixed-variant": "#004395",
+                    "on-primary-fixed": "#131b2e",
+                    "on-primary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#eff1f3",
+                    "surface-dim": "#d8dadc",
+                    "tertiary-container": "#001a42",
+                    "on-secondary-fixed-variant": "#005236",
+                    "secondary": "#006c49"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "2xl": "1rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "8px",
+                    "margin-mobile": "16px",
+                    "stack-lg": "32px",
+                    "gutter": "24px",
+                    "base": "4px",
+                    "stack-md": "16px",
+                    "margin-desktop": "48px",
+                    "container-max": "1440px"
+            },
+            "fontFamily": {
+                    "label-md": ["Geist"],
+                    "body-lg": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-sm": ["Geist"],
+                    "headline-lg-mobile": ["Inter"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .bento-card {
+            background-color: #ffffff;
+            border: 1px solid #E2E8F0;
+            border-radius: 1rem;
+            transition: all 0.2s ease;
+        }
+        .bento-card:hover {
+            border-color: #4edea3;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        .ai-gradient-border {
+            position: relative;
+            background: #fff;
+            background-clip: padding-box;
+            border: 1px solid transparent;
+        }
+        .ai-gradient-border::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            z-index: -1;
+            margin: -1px;
+            border-radius: inherit;
+            background: linear-gradient(135deg, #005236, #3980f4);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface pb-24">
+<!-- Top App Bar (Shared Component Strategy) -->
+<header class="bg-surface border-b border-outline-variant fixed top-0 w-full h-16 flex items-center px-margin-mobile z-50">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-low transition-colors" onclick="history.back()">
+<span class="material-symbols-outlined text-on-surface">arrow_back</span>
+</button>
+<h1 class="ml-4 font-headline-md text-headline-md text-primary">Attendance Detail</h1>
+<div class="flex-grow"></div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-on-surface">notifications</span>
+</button>
+</header>
+<main class="mt-20 px-margin-mobile space-y-stack-md">
+<!-- Student Context Profile -->
+<section class="flex items-center space-x-stack-md bg-white p-4 rounded-2xl border border-outline-variant">
+<div class="relative">
+<img class="w-16 h-16 rounded-full object-cover border-2 border-secondary-fixed" data-alt="A professional headshot of a young West African student named Kofi Owusu, wearing a neat school uniform, with a soft-focus classroom background. The lighting is bright and natural, emphasizing a high-end educational environment with a clean, professional aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCR9cui7taopOh6qCHostF1iGmb_ZmgpD9O84ah4QZDJzVCG_HWhO5Vfs1FJXS7SVuzNzDrnVAqaYK71MnanrUz7dqwHgVNn1CcucJVegyH2x7L_HCliKEtdvjZ93kXecNbgqMEdt0l3TQURPFQxLzce8IOlt7JfbLT651hGpVf59_rVncWkVPGV5LQ2e0r9jDj4hgyb5scBtujOpLEe8fFPZe6kUW6UcLt2Ljd2RXIcNWyb80m-13TgR1p3F66B7uc58XgJCA8xak"/>
+<div class="absolute bottom-0 right-0 w-4 h-4 bg-secondary-fixed border-2 border-white rounded-full"></div>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md leading-tight">Kofi Owusu</h2>
+<p class="font-label-md text-on-surface-variant">Grade SSS 2 • Student ID: #EDU-992</p>
+</div>
+</section>
+<!-- Actionable Insights (AI Module) -->
+<section class="ai-gradient-border p-4 rounded-2xl">
+<div class="flex items-center space-x-2 mb-2">
+<span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h3 class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">AI Insights</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface leading-relaxed">
+                Kofi's attendance is consistent at <span class="font-bold text-secondary">94%</span>, however, 60% of his absences occurred on <span class="font-bold">Mondays</span>. This may suggest a pattern related to transit or weekend recovery.
+            </p>
+</section>
+<!-- Key Stats Cards (Bento Style Grid) -->
+<div class="grid grid-cols-2 gap-stack-md">
+<!-- Percent Card -->
+<div class="bento-card p-4 flex flex-col justify-between h-32">
+<span class="font-label-sm text-on-surface-variant">Overall Attendance</span>
+<div class="flex items-baseline space-x-1">
+<span class="font-display-lg text-display-lg text-secondary">94</span>
+<span class="font-headline-md text-headline-md text-on-surface-variant">%</span>
+</div>
+</div>
+<!-- Days Present -->
+<div class="bento-card p-4 flex flex-col justify-between h-32">
+<span class="font-label-sm text-on-surface-variant">Total Present</span>
+<div class="flex items-center justify-between">
+<span class="font-headline-lg text-headline-lg">168</span>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="w-full bg-surface-container h-1 rounded-full overflow-hidden">
+<div class="bg-secondary h-full w-[94%]"></div>
+</div>
+</div>
+<!-- Absences -->
+<div class="bento-card p-4 flex flex-col justify-between h-32">
+<span class="font-label-sm text-on-surface-variant">Absences</span>
+<div class="flex items-center justify-between">
+<span class="font-headline-lg text-headline-lg">8</span>
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">cancel</span>
+</div>
+<p class="font-label-sm text-error/80">3 Unexcused</p>
+</div>
+<!-- Late Arrivals -->
+<div class="bento-card p-4 flex flex-col justify-between h-32">
+<span class="font-label-sm text-on-surface-variant">Late Arrivals</span>
+<div class="flex items-center justify-between">
+<span class="font-headline-lg text-headline-lg">4</span>
+<span class="material-symbols-outlined text-tertiary-fixed-dim" style="font-variation-settings: 'FILL' 1;">schedule</span>
+</div>
+<p class="font-label-sm text-on-surface-variant">Avg. 12m delay</p>
+</div>
+</div>
+<!-- Monthly Trends (Micro Chart) -->
+<section class="bento-card p-4">
+<h3 class="font-label-md text-on-surface mb-4">Monthly Trends</h3>
+<div class="flex items-end justify-between h-24 space-x-4 px-2">
+<div class="flex flex-col items-center flex-1">
+<div class="w-full bg-secondary-container/50 rounded-t-lg h-[80%] relative">
+<div class="absolute bottom-0 w-full bg-secondary-fixed rounded-t-lg h-[92%]"></div>
+</div>
+<span class="mt-2 font-label-sm text-on-surface-variant">Jan</span>
+</div>
+<div class="flex flex-col items-center flex-1">
+<div class="w-full bg-secondary-container/50 rounded-t-lg h-[80%] relative">
+<div class="absolute bottom-0 w-full bg-secondary-fixed rounded-t-lg h-[88%]"></div>
+</div>
+<span class="mt-2 font-label-sm text-on-surface-variant">Feb</span>
+</div>
+<div class="flex flex-col items-center flex-1">
+<div class="w-full bg-secondary-container/50 rounded-t-lg h-[80%] relative">
+<div class="absolute bottom-0 w-full bg-secondary-fixed rounded-t-lg h-[96%]"></div>
+</div>
+<span class="mt-2 font-label-sm text-on-surface-variant">Mar</span>
+</div>
+<div class="flex flex-col items-center flex-1">
+<div class="w-full bg-secondary-container/50 rounded-t-lg h-[80%] relative">
+<div class="absolute bottom-0 w-full bg-secondary-fixed rounded-t-lg h-[85%]"></div>
+</div>
+<span class="mt-2 font-label-sm text-on-surface-variant">Apr</span>
+</div>
+<div class="flex flex-col items-center flex-1">
+<div class="w-full bg-secondary-container/50 rounded-t-lg h-[80%] relative">
+<div class="absolute bottom-0 w-full bg-secondary rounded-t-lg h-[75%]"></div>
+</div>
+<span class="mt-2 font-label-sm text-on-surface-variant">May</span>
+</div>
+</div>
+</section>
+<!-- Detailed Attendance Log -->
+<section class="space-y-stack-sm">
+<div class="flex items-center justify-between">
+<h3 class="font-label-md text-on-surface">Attendance Log</h3>
+<button class="font-label-sm text-secondary flex items-center">
+                    Filter <span class="material-symbols-outlined text-sm ml-1">filter_list</span>
+</button>
+</div>
+<div class="space-y-2">
+<!-- Log Entry: Absent -->
+<div class="bento-card p-4 flex items-center justify-between">
+<div class="flex items-center space-x-stack-md">
+<div class="w-10 h-10 rounded-full bg-error-container flex items-center justify-center text-error">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 700;">close</span>
+</div>
+<div>
+<p class="font-label-md text-on-surface">Mon, May 15, 2024</p>
+<p class="font-label-sm text-on-surface-variant">Medical • Note attached</p>
+</div>
+</div>
+<span class="px-3 py-1 rounded-full bg-error/10 text-error font-label-sm">Absent</span>
+</div>
+<!-- Log Entry: Late -->
+<div class="bento-card p-4 flex items-center justify-between">
+<div class="flex items-center space-x-stack-md">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed-variant">
+<span class="material-symbols-outlined">schedule</span>
+</div>
+<div>
+<p class="font-label-md text-on-surface">Wed, May 10, 2024</p>
+<p class="font-label-sm text-on-surface-variant">Excused • Transit Delay</p>
+</div>
+</div>
+<span class="px-3 py-1 rounded-full bg-tertiary-fixed/30 text-on-tertiary-fixed-variant font-label-sm">Late</span>
+</div>
+<!-- Log Entry: Absent (Unexcused) -->
+<div class="bento-card p-4 flex items-center justify-between">
+<div class="flex items-center space-x-stack-md">
+<div class="w-10 h-10 rounded-full bg-error-container flex items-center justify-center text-error">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 700;">warning</span>
+</div>
+<div>
+<p class="font-label-md text-on-surface">Mon, May 8, 2024</p>
+<p class="font-label-sm text-on-surface-variant">Unexcused</p>
+</div>
+</div>
+<span class="px-3 py-1 rounded-full bg-error text-white font-label-sm">Absent</span>
+</div>
+<!-- Log Entry: Present -->
+<div class="bento-card p-4 flex items-center justify-between">
+<div class="flex items-center space-x-stack-md">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined">check</span>
+</div>
+<div>
+<p class="font-label-md text-on-surface">Fri, May 5, 2024</p>
+<p class="font-label-sm text-on-surface-variant">On time</p>
+</div>
+</div>
+<span class="px-3 py-1 rounded-full bg-secondary-container/50 text-on-secondary-container font-label-sm">Present</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar (Shared Component Strategy) -->
+<nav class="fixed bottom-0 w-full flex justify-around items-center py-2 bg-surface border-t border-outline-variant z-50">
+<!-- Dashboard -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</a>
+<!-- Students (Active) -->
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 active:scale-90 duration-100" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-label-sm text-label-sm">Students</span>
+</a>
+<!-- Finance -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-all" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-sm text-label-sm">Finance</span>
+</a>
+<!-- Settings -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-sm text-label-sm">Settings</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for feedback
+        document.querySelectorAll('.bento-card').forEach(card => {
+            card.addEventListener('mousedown', () => {
+                card.style.transform = 'scale(0.98)';
+            });
+            card.addEventListener('mouseup', () => {
+                card.style.transform = 'scale(1)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>

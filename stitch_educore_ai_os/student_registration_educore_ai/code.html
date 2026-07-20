@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Student Registration | EduCore AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#001a42",
+                        "surface-bright": "#f7f9fb",
+                        "surface-tint": "#565e74",
+                        "on-tertiary-fixed-variant": "#004395",
+                        "on-secondary": "#ffffff",
+                        "surface": "#f7f9fb",
+                        "secondary-container": "#6cf8bb",
+                        "primary": "#000000",
+                        "on-tertiary-fixed": "#001a42",
+                        "on-background": "#191c1e",
+                        "secondary-fixed": "#6ffbbe",
+                        "primary-fixed": "#dae2fd",
+                        "outline-variant": "#c6c6cd",
+                        "on-primary-container": "#7c839b",
+                        "on-secondary-fixed": "#002113",
+                        "outline": "#76777d",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#006c49",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#e6e8ea",
+                        "inverse-primary": "#bec6e0",
+                        "primary-container": "#131b2e",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "surface-container": "#eceef0",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-dim": "#d8dadc",
+                        "on-tertiary-container": "#3980f4",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#00714d",
+                        "tertiary": "#000000",
+                        "secondary-fixed-dim": "#4edea3",
+                        "on-primary-fixed": "#131b2e",
+                        "tertiary-fixed": "#d8e2ff",
+                        "surface-container-low": "#f2f4f6",
+                        "inverse-surface": "#2d3133",
+                        "on-secondary-fixed-variant": "#005236",
+                        "primary-fixed-dim": "#bec6e0",
+                        "error": "#ba1a1a",
+                        "on-surface": "#191c1e",
+                        "tertiary-fixed-dim": "#adc6ff",
+                        "surface-variant": "#e0e3e5",
+                        "on-surface-variant": "#45464d",
+                        "surface-container-highest": "#e0e3e5",
+                        "background": "#f7f9fb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "margin-desktop": "48px",
+                        "gutter": "24px",
+                        "container-max": "1440px",
+                        "stack-md": "16px",
+                        "stack-lg": "32px",
+                        "stack-sm": "8px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Geist"],
+                        "headline-lg-mobile": ["Inter"],
+                        "label-sm": ["Geist"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; }
+        .bento-card { transition: all 0.2s ease-in-out; }
+        .bento-card:hover { transform: translateY(-2px); box-shadow: 0 4px 20px -2px rgba(0,0,0,0.05); }
+        input:focus, select:focus, textarea:focus { 
+            outline: none; 
+            border-color: #006c49 !important;
+            box-shadow: 0 0 0 2px rgba(108, 248, 187, 0.2); 
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- Layout Container -->
+<div class="flex min-h-screen">
+<!-- SideNavBar Anchor -->
+<!-- style_bg_color, style_component_shape, style_separation_logic are applied below -->
+<aside class="flex flex-col h-screen p-stack-md bg-surface-container-low dark:bg-surface-container-lowest fixed left-0 top-0 w-64 border-r border-outline-variant dark:border-outline z-50">
+<div class="flex items-center gap-3 mb-10 px-2">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">school</span>
+</div>
+<div>
+<h1 class="text-headline-md font-headline-md font-black text-primary dark:text-on-primary-container leading-none">EduCore AI</h1>
+<p class="text-[10px] font-label-sm uppercase tracking-widest text-on-surface-variant opacity-70">Admin Terminal</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Dashboard -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<!-- Students - ACTIVE -->
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg font-bold font-label-md text-label-md active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span>Students</span>
+</a>
+<!-- Teachers -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span>Teachers</span>
+</a>
+<!-- AI Lesson Planner -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+<span>AI Lesson Planner</span>
+</a>
+<!-- Finance -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span>Finance</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-outline-variant space-y-1">
+<button class="w-full bg-secondary text-white py-3 rounded-xl font-bold mb-4 active:scale-95 transition-transform flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+<span>Generate Plan</span>
+</button>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 p-margin-desktop bg-surface-bright min-h-screen">
+<!-- Page Header -->
+<header class="mb-stack-lg flex justify-between items-end">
+<div>
+<nav class="flex items-center gap-2 text-label-sm text-on-surface-variant mb-2">
+<span>Dashboard</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span>Students</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-bold">New Registration</span>
+</nav>
+<h2 class="font-headline-lg text-headline-lg text-primary tracking-tight">Student Registration</h2>
+<p class="text-body-md text-on-surface-variant mt-1">Enroll a new student into the EduCore ecosystem.</p>
+</div>
+<div class="flex gap-stack-sm">
+<button class="px-6 py-2 border border-outline text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container transition-colors">Save Draft</button>
+<button class="px-6 py-2 bg-secondary text-white rounded-lg font-label-md text-label-md hover:opacity-90 transition-opacity flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+                        Register Student
+                    </button>
+</div>
+</header>
+<!-- Registration Form Canvas -->
+<form class="max-w-[1000px] space-y-stack-md" id="registrationForm">
+<!-- Section Grid -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Left Column: Personal & Bio -->
+<div class="col-span-12 lg:col-span-8 space-y-stack-md">
+<!-- Personal Information -->
+<section class="bg-white rounded-2xl border border-outline-variant p-stack-lg bento-card">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-8 h-8 bg-primary-container text-white rounded-full flex items-center justify-center">
+<span class="text-label-sm">01</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary">Personal Information</h3>
+</div>
+<div class="grid grid-cols-2 gap-stack-md">
+<div class="col-span-2 md:col-span-1">
+<label class="block text-label-sm text-on-surface-variant mb-2">Admission Number</label>
+<input class="w-full bg-surface-container-low border-outline-variant rounded-lg py-3 px-4 font-body-md text-body-md" placeholder="e.g. ADM-2024-001" type="text"/>
+</div>
+<div class="col-span-2 md:col-span-1">
+<label class="block text-label-sm text-on-surface-variant mb-2">Full Name</label>
+<input class="w-full bg-surface-container-low border-outline-variant rounded-lg py-3 px-4 font-body-md text-body-md" placeholder="As it appears on ID" type="text"/>
+</div>
+<div class="col-span-2 md:col-span-1">
+<label class="block text-label-sm text-on-surface-variant mb-2">Date of Birth</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low border-outline-variant rounded-lg py-3 px-4 font-body-md text-body-md" type="date"/>
+</div>
+</div>
+<div class="col-span-2 md:col-span-1">
+<label class="block text-label-sm text-on-surface-variant mb-2">Gender</label>
+<select class="w-full bg-surface-container-low border-outline-variant rounded-lg py-3 px-4 font-body-md text-body-md">
+<option value="">Select gender</option>
+<option value="male">Male</option>
+<option value="female">Female</option>
+<option value="other">Other</option>
+</select>
+</div>
+<div class="col-span-2">
+<label class="block text-label-sm text-on-surface-variant mb-2">Class / Grade Level</label>
+<select class="w-full bg-surface-container-low border-outline-variant rounded-lg py-3 px-4 font-body-md text-body-md">
+<option value="">Select a class</option>
+<option value="p1">Primary 1</option>
+<option value="p2">Primary 2</option>
+<option value="p3">Primary 3</option>
+<option value="s1">Senior 1</option>
+<option value="s2">Senior 2</option>
+</select>
+</div>
+</div>
+</section>
+<!-- Parent/Guardian Information -->
+<section class="bg-white rounded-2xl border border-outline-variant p-stack-lg bento-card">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-8 h-8 bg-primary-container text-white rounded-full flex items-center justify-center">
+<span class="text-label-sm">02</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary">Parent/Guardian Information</h3>
+</div>
+<div class="grid grid-cols-2 gap-stack-md">
+<div class="col-span-2 md:col-span-1">
+<label class="block text-label-sm text-on-surface-variant mb-2">Guardian Full Name</label>
+<input class="w-full bg-surface-container-low border-outline-variant rounded-lg py-3 px-4 font-body-md text-body-md" placeholder="Full legal name" type="text"/>
+</div>
+<div class="col-span-2 md:col-span-1">
+<label class="block text-label-sm text-on-surface-variant mb-2">Relationship</label>
+<input class="w-full bg-surface-container-low border-outline-variant rounded-lg py-3 px-4 font-body-md text-body-md" placeholder="e.g. Father, Mother, Aunt" type="text"/>
+</div>
+<div class="col-span-2 md:col-span-1">
+<label class="block text-label-sm text-on-surface-variant mb-2">Phone Number</label>
+<input class="w-full bg-surface-container-low border-outline-variant rounded-lg py-3 px-4 font-body-md text-body-md" placeholder="+234 ..." type="tel"/>
+</div>
+<div class="col-span-2 md:col-span-1">
+<label class="block text-label-sm text-on-surface-variant mb-2">Email Address</label>
+<input class="w-full bg-surface-container-low border-outline-variant rounded-lg py-3 px-4 font-body-md text-body-md" placeholder="guardian@email.com" type="email"/>
+</div>
+<div class="col-span-2">
+<label class="block text-label-sm text-on-surface-variant mb-2">Home Address</label>
+<textarea class="w-full bg-surface-container-low border-outline-variant rounded-lg py-3 px-4 font-body-md text-body-md" placeholder="Full residential address" rows="2"></textarea>
+</div>
+</div>
+</section>
+<!-- Additional Details -->
+<section class="bg-white rounded-2xl border border-outline-variant p-stack-lg bento-card">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-8 h-8 bg-primary-container text-white rounded-full flex items-center justify-center">
+<span class="text-label-sm">03</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary">Additional Details</h3>
+</div>
+<div>
+<label class="block text-label-sm text-on-surface-variant mb-2">Medical Notes / Allergies</label>
+<textarea class="w-full bg-surface-container-low border-outline-variant rounded-lg py-3 px-4 font-body-md text-body-md" placeholder="Mention any medical conditions, allergies, or dietary requirements the school should be aware of." rows="4"></textarea>
+</div>
+</section>
+</div>
+<!-- Right Column: Media & Meta -->
+<div class="col-span-12 lg:col-span-4 space-y-stack-md">
+<!-- Passport Photo Upload -->
+<section class="bg-white rounded-2xl border border-outline-variant p-stack-lg bento-card sticky top-stack-md">
+<div class="mb-6">
+<h3 class="font-headline-md text-headline-md text-primary mb-1">Passport Photo</h3>
+<p class="text-label-sm text-on-surface-variant">Used for Student ID and records.</p>
+</div>
+<div class="relative group cursor-pointer border-2 border-dashed border-outline-variant rounded-2xl p-6 flex flex-col items-center justify-center text-center hover:border-secondary transition-colors bg-surface-container-low">
+<input accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer" id="photoUpload" type="file"/>
+<div class="w-32 h-40 bg-surface-container-high rounded-lg mb-4 flex items-center justify-center overflow-hidden border border-outline-variant" id="previewContainer">
+<span class="material-symbols-outlined text-outline text-[48px]" id="uploadIcon">account_circle</span>
+<img class="hidden object-cover w-full h-full" data-alt="A professional student passport photograph with a plain white background, showing a young person in a neat school uniform, brightly lit with a soft studio glow. The image follows a high-end academic portrait style with clean focus and balanced exposure for administrative record-keeping." id="photoPreview" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMRCgRZUng3JJ7hydK_1hdF5ky21qX7UodxKDPu8nXPP8WUeX1Ap_uZTqNfjIBL2ODHUr5wtMVrHVviq7mOjmTZZ04hN7XbUwFk4GXvPDVyJH1d-su8uKaHjJtWPOSCJbTlyfGlycEGunrG5VKeJGc2T1BAUMBnaoTkIEQJaMsRlcyLb87A1fRL9OWKkHpMGWzgurwDtRVNPq9mMVbeyGMD11SF2Rw2rqsc2mb67Zuz9Vu94nvqGCu_o1-zxeVt_l34DiKl1tlSSY"/>
+</div>
+<p class="text-label-md font-bold text-on-surface">Click to upload photo</p>
+<p class="text-[10px] text-on-surface-variant mt-2">Max size: 2MB. Format: JPG, PNG</p>
+</div>
+<div class="mt-8 space-y-4">
+<div class="p-3 bg-secondary-container/20 rounded-lg flex gap-3 items-start">
+<span class="material-symbols-outlined text-secondary text-[20px]">info</span>
+<p class="text-label-sm text-on-secondary-container">The photo should be recent and have a neutral background for ID card generation.</p>
+</div>
+<div class="flex items-center gap-3 px-2">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<p class="text-label-sm text-on-surface-variant">Validated by AI for clarity</p>
+</div>
+<div class="flex items-center gap-3 px-2">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<p class="text-label-sm text-on-surface-variant">Automatically cropped</p>
+</div>
+</div>
+</section>
+<!-- Summary/Quick Links -->
+<div class="bg-primary-container text-white rounded-2xl p-stack-lg">
+<h4 class="font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary-fixed">bolt</span>
+                                Quick Actions
+                            </h4>
+<div class="space-y-3">
+<button class="w-full text-left p-3 rounded-lg bg-white/10 hover:bg-white/20 transition-colors flex justify-between items-center group" type="button">
+<span class="text-label-md">Import from CSV</span>
+<span class="material-symbols-outlined text-[18px] opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</button>
+<button class="w-full text-left p-3 rounded-lg bg-white/10 hover:bg-white/20 transition-colors flex justify-between items-center group" type="button">
+<span class="text-label-md">Download Form PDF</span>
+<span class="material-symbols-outlined text-[18px] opacity-0 group-hover:opacity-100 transition-opacity">download</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Navigation -->
+<footer class="flex items-center justify-between py-10 border-t border-outline-variant mt-10">
+<p class="text-label-sm text-on-surface-variant">All student data is encrypted and handled according to privacy policies.</p>
+<div class="flex gap-4">
+<button class="px-8 py-3 text-on-surface-variant font-bold hover:bg-surface-container rounded-xl transition-colors" type="reset">Discard</button>
+<button class="px-10 py-3 bg-secondary text-white font-bold rounded-xl shadow-lg shadow-secondary/20 hover:scale-[1.02] active:scale-95 transition-all" type="submit">Register Student</button>
+</div>
+</footer>
+</form>
+</main>
+</div>
+<!-- Notification Overlay (Hidden by default) -->
+<div class="fixed bottom-10 right-10 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none" id="toast">
+<div class="bg-primary text-white px-6 py-4 rounded-xl flex items-center gap-3 shadow-2xl">
+<span class="material-symbols-outlined text-secondary-fixed">check_circle</span>
+<span class="font-label-md">Draft saved successfully</span>
+</div>
+</div>
+<script>
+        // Simple Interaction Scripts
+        const photoInput = document.getElementById('photoUpload');
+        const previewImg = document.getElementById('photoPreview');
+        const uploadIcon = document.getElementById('uploadIcon');
+        
+        photoInput.addEventListener('change', function(e) {
+            if (e.target.files && e.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    previewImg.src = event.target.result;
+                    previewImg.classList.remove('hidden');
+                    uploadIcon.classList.add('hidden');
+                };
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        });
+
+        // Form Submit Simulation
+        const form = document.getElementById('registrationForm');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const toast = document.getElementById('toast');
+            toast.querySelector('span:last-child').innerText = 'Student registered successfully!';
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+                toast.classList.remove('translate-y-0', 'opacity-100');
+            }, 3000);
+        });
+
+        // Save Draft Simulation
+        document.querySelectorAll('button').forEach(btn => {
+            if(btn.innerText.includes('Save Draft')) {
+                btn.onclick = () => {
+                    const toast = document.getElementById('toast');
+                    toast.querySelector('span:last-child').innerText = 'Draft saved to local database';
+                    toast.classList.remove('translate-y-20', 'opacity-0');
+                    toast.classList.add('translate-y-0', 'opacity-100');
+                    setTimeout(() => {
+                        toast.classList.add('translate-y-20', 'opacity-0');
+                    }, 2000);
+                }
+            }
+        });
+    </script>
+</body></html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EduCore AI - Generating Growth Action Plan</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist:wght@400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error": "#ba1a1a",
+                    "tertiary-fixed": "#d8e2ff",
+                    "secondary-fixed-dim": "#4edea3",
+                    "primary-container": "#131b2e",
+                    "tertiary-container": "#001a42",
+                    "surface-bright": "#f7f9fb",
+                    "background": "#f7f9fb",
+                    "primary-fixed-dim": "#bec6e0",
+                    "on-tertiary-fixed-variant": "#004395",
+                    "on-tertiary-fixed": "#001a42",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-error": "#ffffff",
+                    "secondary-fixed": "#6ffbbe",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed-variant": "#005236",
+                    "on-secondary-fixed": "#002113",
+                    "secondary-container": "#6cf8bb",
+                    "outline": "#76777d",
+                    "outline-variant": "#c6c6cd",
+                    "on-primary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "surface-variant": "#e0e3e5",
+                    "surface-container-high": "#e6e8ea",
+                    "error-container": "#ffdad6",
+                    "secondary": "#006c49",
+                    "tertiary": "#000000",
+                    "on-secondary-container": "#00714d",
+                    "primary-fixed": "#dae2fd",
+                    "on-tertiary": "#ffffff",
+                    "on-background": "#191c1e",
+                    "surface-tint": "#565e74",
+                    "surface-dim": "#d8dadc",
+                    "primary": "#000000",
+                    "surface": "#f7f9fb",
+                    "inverse-primary": "#bec6e0",
+                    "on-secondary": "#ffffff",
+                    "surface-container": "#eceef0",
+                    "on-surface": "#191c1e",
+                    "on-surface-variant": "#45464d",
+                    "inverse-surface": "#2d3133",
+                    "tertiary-fixed-dim": "#adc6ff",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "on-primary-container": "#7c839b",
+                    "surface-container-low": "#f2f4f6",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-tertiary-container": "#3980f4",
+                    "on-primary-fixed": "#131b2e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-lg": "32px",
+                    "base": "4px",
+                    "stack-sm": "8px",
+                    "stack-md": "16px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "48px",
+                    "gutter": "24px",
+                    "container-max": "1440px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "label-md": ["Geist"],
+                    "headline-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "label-sm": ["Geist"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "display-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        .ai-pulse {
+            animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 1; transform: scale(1); filter: brightness(1); }
+            50% { opacity: 0.8; transform: scale(1.02); filter: brightness(1.1); }
+        }
+
+        .data-stream {
+            mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+        }
+
+        .shimmer {
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .gradient-ai-border {
+            position: relative;
+            border: 1px solid transparent;
+            background: linear-gradient(#ffffff, #ffffff) padding-box,
+                        linear-gradient(135deg, #006c49, #3980f4) border-box;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md">
+<!-- Top AppBar (from JSON) -->
+<header class="fixed top-0 w-full z-50 bg-surface border-b border-outline-variant flex items-center justify-between px-margin-mobile md:px-margin-desktop h-16 w-full">
+<div class="flex items-center gap-stack-sm">
+<span class="material-symbols-outlined text-primary" data-icon="school">school</span>
+<h1 class="font-headline-md text-headline-lg-mobile md:text-headline-md text-primary tracking-tight">EduCore AI</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-low transition-colors p-2 rounded-full" data-icon="notifications">notifications</button>
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed font-label-md">AT</div>
+</div>
+</header>
+<main class="pt-24 pb-32 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto min-h-screen">
+<!-- Header Section -->
+<div class="flex flex-col items-center text-center mb-stack-lg max-w-2xl mx-auto">
+<div class="mb-stack-md relative">
+<div class="w-20 h-20 bg-secondary-container rounded-full flex items-center justify-center ai-pulse">
+<span class="material-symbols-outlined text-on-secondary-container text-4xl" data-icon="psychology" style="font-variation-settings: 'FILL' 1;">psychology</span>
+</div>
+<div class="absolute -top-1 -right-1">
+<span class="flex h-4 w-4">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-4 w-4 bg-secondary"></span>
+</span>
+</div>
+</div>
+<h2 class="font-headline-lg text-headline-lg mb-2">Generating Action Plan</h2>
+<p class="font-body-lg text-on-surface-variant">Personalized Growth Strategy for <span class="font-bold text-on-surface">Dr. Aris Thorne</span></p>
+</div>
+<!-- Main Bento Content -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Analysis Engine Status (LHS Large) -->
+<div class="md:col-span-8 space-y-gutter">
+<!-- AI Analyzing Feed -->
+<div class="gradient-ai-border bg-white rounded-2xl p-stack-md overflow-hidden min-h-[320px] flex flex-col">
+<div class="flex items-center justify-between mb-stack-md">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="analytics">analytics</span>
+<span class="font-label-md text-secondary">AI Core processing...</span>
+</div>
+<div class="font-label-sm text-on-surface-variant">Model: EDU-GEN-V4</div>
+</div>
+<div class="flex-grow data-stream flex flex-col gap-4 py-4">
+<div class="flex items-center gap-4 bg-surface-container-low p-stack-sm rounded-xl border border-outline-variant animate-pulse">
+<span class="material-symbols-outlined text-blue-500" data-icon="trending_up">trending_up</span>
+<p class="font-body-md text-on-surface">AI Analyzing: <span class="font-semibold">Student Engagement Trends</span> – Mapping classroom participation across Q3...</p>
+</div>
+<div class="flex items-center gap-4 bg-surface-container-low p-stack-sm rounded-xl border border-outline-variant opacity-80" style="animation: slide-in 1s ease-out;">
+<span class="material-symbols-outlined text-green-500" data-icon="forum">forum</span>
+<p class="font-body-md text-on-surface">AI Analyzing: <span class="font-semibold">Peer Feedback</span> – Synthesizing departmental reviews and mentorship notes...</p>
+</div>
+<div class="flex items-center gap-4 bg-surface-container-low p-stack-sm rounded-xl border border-outline-variant opacity-60">
+<span class="material-symbols-outlined text-purple-500" data-icon="grade">grade</span>
+<p class="font-body-md text-on-surface">AI Analyzing: <span class="font-semibold">Academic Outcomes</span> – Correlating lesson plans with recent assessment scores...</p>
+</div>
+<div class="flex items-center gap-4 bg-surface-container-low p-stack-sm rounded-xl border border-outline-variant opacity-40">
+<span class="material-symbols-outlined text-secondary" data-icon="hub">hub</span>
+<p class="font-body-md text-on-surface">Connecting pedagogical patterns to growth milestones...</p>
+</div>
+</div>
+<div class="mt-auto pt-stack-md border-t border-outline-variant">
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-sm text-on-surface-variant">Synthesis Progress</span>
+<span class="font-label-sm font-bold text-secondary">68%</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-2 overflow-hidden">
+<div class="bg-secondary h-full rounded-full transition-all duration-1000 ease-in-out" style="width: 68%;"></div>
+</div>
+</div>
+</div>
+<!-- Preview Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-gutter">
+<div class="bg-white border border-outline-variant rounded-2xl p-stack-md">
+<h4 class="font-label-md text-on-surface mb-stack-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="pie_chart">pie_chart</span>
+                            Engagement Mix
+                        </h4>
+<div class="h-24 flex items-end gap-2 px-2">
+<div class="flex-1 bg-secondary-container rounded-t-lg" style="height: 40%;"></div>
+<div class="flex-1 bg-secondary rounded-t-lg" style="height: 80%;"></div>
+<div class="flex-1 bg-on-tertiary-container rounded-t-lg" style="height: 60%;"></div>
+<div class="flex-1 bg-secondary-container rounded-t-lg" style="height: 90%;"></div>
+</div>
+<p class="font-label-sm text-on-surface-variant mt-2">Active participation is up 12% MoM.</p>
+</div>
+<div class="bg-white border border-outline-variant rounded-2xl p-stack-md">
+<h4 class="font-label-md text-on-surface mb-stack-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="verified">verified</span>
+                            Core Strengths
+                        </h4>
+<div class="flex flex-wrap gap-2">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-sm">Inquiry-based Learning</span>
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-sm">Differentiated Inst.</span>
+<span class="bg-surface-container-highest text-on-surface-variant px-3 py-1 rounded-full font-label-sm shimmer w-24 h-6"></span>
+</div>
+</div>
+</div>
+</div>
+<!-- Profile & Context (RHS Small) -->
+<aside class="md:col-span-4 space-y-gutter">
+<div class="bg-white border border-outline-variant rounded-2xl p-stack-md text-center">
+<div class="w-24 h-24 mx-auto mb-stack-md relative">
+<div class="w-full h-full rounded-full bg-cover bg-center border-4 border-white shadow-md" data-alt="A professional portrait of a distinguished African academic male in his late 40s, wearing a modern charcoal blazer. He is in a brightly lit, contemporary university office with books and a laptop in the soft-focus background. The lighting is warm and authoritative, reflecting the Lumina Academic brand's professional and stable persona." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCUTbh7ccHq9jBXoSr6lU1ojGWJyaEunIN1mqRRl0p9lj-b9gS2k-B8U3HPitNnBf2sLoIPNl3ubPU0DeFsWJ3Ut_qWBY9xkqPU-Xo8lAi2JiVUlKrzFTsEvgteqw6ORUslSn23JUE9lCeoFrVDCCj6vprlA_SlXIKzsRkUytd5XDafP_BAAJ8NKp_fhheNCMGS29e7k71NaIn9pxvVG4sIg0zjQWllcFLF5wfO0hix2iujqYCwEwxEtYg-NM9IMpyjvYzL7yF0Zzw')"></div>
+</div>
+<h3 class="font-headline-md text-on-surface">Dr. Aris Thorne</h3>
+<p class="font-label-md text-on-surface-variant mb-stack-md">Senior Lecturer, Physics Department</p>
+<div class="grid grid-cols-2 gap-2 text-left">
+<div class="bg-surface-container-low p-2 rounded-lg">
+<p class="text-[10px] uppercase font-bold text-outline">Tenure</p>
+<p class="font-label-md">8 Years</p>
+</div>
+<div class="bg-surface-container-low p-2 rounded-lg">
+<p class="text-[10px] uppercase font-bold text-outline">KPI Rating</p>
+<p class="font-label-md">4.8 / 5.0</p>
+</div>
+</div>
+</div>
+<div class="bg-white border border-outline-variant rounded-2xl p-stack-md">
+<h4 class="font-label-md text-on-surface mb-stack-md">Upcoming Goal Focus</h4>
+<ul class="space-y-stack-sm">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md">Hybrid Learning Adoption</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+<span class="font-body-md">STEM Outreach Programs</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+<span class="font-body-md">AI-Assisted Assessment</span>
+</li>
+</ul>
+</div>
+<div class="bg-primary-container text-on-primary-container rounded-2xl p-stack-md relative overflow-hidden">
+<div class="relative z-10">
+<h4 class="font-label-md text-on-primary-fixed mb-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="auto_awesome">auto_awesome</span>
+                            Growth Insight
+                        </h4>
+<p class="text-label-md italic">"Dr. Thorne's recent shift to interactive simulations has led to a 15% increase in STEM student retention. The new plan will capitalize on this momentum."</p>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-10">
+<span class="material-symbols-outlined text-9xl" data-icon="format_quote">format_quote</span>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- Bottom Navigation (from JSON) -->
+<nav class="fixed bottom-0 w-full z-50 bg-surface border-t border-outline-variant rounded-t-xl md:hidden">
+<div class="flex justify-around items-center w-full h-20 pb-safe px-2">
+<div class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-sm">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-label-md text-label-sm">Students</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-label-md text-label-sm">Finance</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-sm">Settings</span>
+</div>
+</div>
+</nav>
+<!-- Desktop Sidebar/Nav (Optional extension based on layout rules) -->
+<div class="hidden md:flex fixed left-0 top-16 h-[calc(100vh-64px)] w-20 flex-col items-center py-stack-lg bg-surface border-r border-outline-variant z-40">
+<div class="flex flex-col gap-stack-lg">
+<button class="w-12 h-12 flex items-center justify-center rounded-xl bg-secondary-container text-on-secondary-container hover:bg-secondary hover:text-white transition-all duration-300">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+</button>
+<button class="w-12 h-12 flex items-center justify-center rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all duration-300">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+</button>
+<button class="w-12 h-12 flex items-center justify-center rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all duration-300">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+</button>
+<div class="flex-grow"></div>
+<button class="w-12 h-12 flex items-center justify-center rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all duration-300">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</div>
+<script>
+        // Micro-interactions for the "live" data stream
+        document.addEventListener('DOMContentLoaded', () => {
+            const dataStream = document.querySelector('.data-stream');
+            const messages = [
+                "Cross-referencing Research Publication Impact...",
+                "Benchmarking Classroom Innovation Scores...",
+                "Finalizing Growth Recommendations for Q4...",
+                "Mapping Career Pathing Opportunities...",
+                "Optimizing Faculty Resource Allocation..."
+            ];
+            let index = 0;
+
+            setInterval(() => {
+                const newItem = document.createElement('div');
+                newItem.className = 'flex items-center gap-4 bg-surface-container-low p-stack-sm rounded-xl border border-outline-variant opacity-0 transform translate-y-2 transition-all duration-500';
+                newItem.innerHTML = `
+                    <span class="material-symbols-outlined text-secondary" data-icon="auto_mode">auto_mode</span>
+                    <p class="font-body-md text-on-surface">${messages[index]}</p>
+                `;
+                
+                dataStream.insertBefore(newItem, dataStream.firstChild);
+                
+                setTimeout(() => {
+                    newItem.classList.remove('opacity-0', 'translate-y-2');
+                }, 50);
+
+                if (dataStream.children.length > 5) {
+                    dataStream.lastElementChild.remove();
+                }
+
+                index = (index + 1) % messages.length;
+            }, 3000);
+        });
+    </script>
+</body></html>

@@ -1,0 +1,210 @@
+Since your long-term goal is to build an AI School Operating System and you already run Career Code Academy, your MVP should not try to compete feature-for-feature with Horizon School Suite on day one.
+Your MVP should answer one question:
+"Can a school manage its core operations on this platform and save time?"
+MVP Name
+EduCore AI (working name)
+Tagline:
+The AI Operating System for African Schools.
+
+Phase 1 MVP (6–8 Weeks)
+Focus on solving the biggest problems for a school.
+1. Landing Website
+Professional homepage
+Features
+Pricing
+About
+Contact
+Book a Demo
+Free Trial signup
+
+2. Authentication
+School registration
+Email verification
+Login
+Password reset
+Role-based access
+Roles:
+Super Admin
+School Admin
+Teacher
+Student
+Parent
+
+3. School Setup
+After signup:
+School name
+Logo
+Address
+Phone
+Email
+Session
+Term
+Classes
+
+4. Student Management
+Add Student
+Fields:
+Admission Number
+Name
+Passport
+Date of Birth
+Gender
+Parent
+Class
+Address
+Medical Notes
+Functions:
+Search
+Edit
+Promote
+Archive
+
+5. Teacher Management
+Store:
+Teacher details
+Department
+Subjects
+Qualifications
+Attendance
+
+6. Attendance
+Teachers can:
+Mark attendance
+Late arrivals
+Absent students
+Dashboard shows:
+Today's attendance
+Weekly trend
+
+7. Result Management
+Teachers:
+Enter scores
+Generate results
+Automatically calculate:
+Total
+Average
+Position
+Grade
+Remarks
+
+8. Fee Management
+Create fees
+Parents see:
+Outstanding balance
+Paid amount
+Receipt history
+Admin sees:
+Revenue dashboard
+
+9. Parent Portal
+Parents can:
+View results
+View attendance
+Pay fees
+Download receipts
+
+10. Dashboard
+School owner sees:
+Students: 1,250
+
+Teachers: 48
+
+Revenue:
+₦12,450,000
+
+Attendance:
+95%
+
+Outstanding Fees:
+₦1.4M
+
+
+AI Features (Only Two in MVP)
+Don't build ten AI tools initially.
+AI Lesson Plan Generator
+Teacher types:
+Week 4 Mathematics JSS1
+AI generates:
+Objectives
+Materials
+Activities
+Assessment
+
+AI Report Comment Generator
+Teacher enters:
+Average = 72
+
+Behaviour = Excellent
+
+AI generates a personalized report comment.
+These two features provide immediate value without overcomplicating the first release.
+
+Technology Stack
+Frontend
+Next.js
+TypeScript
+Tailwind CSS
+Shadcn UI
+Backend
+NestJS (or Express if you want a faster first version)
+PostgreSQL
+Authentication
+JWT
+Refresh Tokens
+Storage
+Cloudinary (images)
+Object storage for documents
+Payments
+Paystack
+Flutterwave
+AI
+OpenAI API
+Hosting
+Vercel (frontend)
+Railway or Render (backend)
+Neon (PostgreSQL)
+
+What NOT to Build Yet
+Avoid these until schools are actively using the platform:
+Hostel Management
+Library
+Transport
+Payroll
+Inventory
+Biometric Attendance
+School Website Builder
+Mobile Apps
+AI Student Tutor
+AI Voice Assistant
+Learning Management System (LMS)
+They add complexity without helping you validate the core product.
+
+Success Metrics
+You'll know your MVP is working if you can achieve:
+10 pilot schools
+1,000+ students managed
+100+ teachers using it
+90%+ monthly active usage
+At least 5 schools willing to pay after the pilot
+
+Suggested Development Timeline
+Week
+Milestone
+1
+UI/UX design and database schema
+2
+Authentication and school onboarding
+3
+Student and teacher management
+4
+Attendance and result management
+5
+Fee management and parent portal
+6
+AI lesson plans and report comments
+7
+Testing with Career Code Academy
+8
+Pilot launch with 3–5 external schools
+Use Career Code Academy as your first pilot
+Since you already operate Career Code Academy, use it to test the platform before approaching other schools. You'll discover usability issues, validate workflows, and gather real feedback in a low-risk environment. Once the core system is stable, you can expand it into a multi-school SaaS product.

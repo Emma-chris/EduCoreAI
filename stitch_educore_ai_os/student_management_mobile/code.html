@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Student Management | EduCore AI</title>
+<!-- Google Fonts: Inter for branding/headlines, Geist for labels/monospaced feel -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface-variant": "#45464d",
+                    "surface-variant": "#e0e3e5",
+                    "on-primary-fixed": "#131b2e",
+                    "inverse-surface": "#2d3133",
+                    "on-background": "#191c1e",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-tertiary-fixed-variant": "#004395",
+                    "primary-container": "#131b2e",
+                    "surface-tint": "#565e74",
+                    "inverse-on-surface": "#eff1f3",
+                    "tertiary-container": "#001a42",
+                    "surface-container": "#eceef0",
+                    "on-secondary-fixed": "#002113",
+                    "primary": "#000000",
+                    "tertiary-fixed": "#d8e2ff",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "surface-dim": "#d8dadc",
+                    "surface-container-low": "#f2f4f6",
+                    "primary-fixed": "#dae2fd",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-primary": "#bec6e0",
+                    "error": "#ba1a1a",
+                    "on-error": "#ffffff",
+                    "surface-container-high": "#e6e8ea",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-container": "#3980f4",
+                    "tertiary-fixed-dim": "#adc6ff",
+                    "secondary-container": "#6cf8bb",
+                    "surface-bright": "#f7f9fb",
+                    "on-tertiary-fixed": "#001a42",
+                    "on-primary": "#ffffff",
+                    "surface": "#f7f9fb",
+                    "secondary-fixed": "#6ffbbe",
+                    "on-secondary-container": "#00714d",
+                    "on-secondary": "#ffffff",
+                    "secondary": "#006c49",
+                    "outline": "#76777d",
+                    "outline-variant": "#c6c6cd",
+                    "on-surface": "#191c1e",
+                    "on-primary-container": "#7c839b",
+                    "on-secondary-fixed-variant": "#005236",
+                    "primary-fixed-dim": "#bec6e0",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed-dim": "#4edea3",
+                    "tertiary": "#000000",
+                    "on-tertiary": "#ffffff",
+                    "background": "#f7f9fb"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "2xl": "1rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "gutter": "24px",
+                    "container-max": "1440px",
+                    "stack-lg": "32px",
+                    "margin-desktop": "48px",
+                    "stack-sm": "8px",
+                    "margin-mobile": "16px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Geist"],
+                    "headline-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-md": ["Geist"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .student-card-active:active {
+            transform: scale(0.98);
+            transition: transform 150ms ease;
+        }
+        /* Custom scrollbar for filter chips */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen pb-24">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface border-b border-outline-variant flex justify-between items-center px-margin-mobile h-16 md:px-margin-desktop">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">menu</span>
+<h1 class="text-headline-md font-headline-md font-bold text-primary">EduCore AI</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="relative p-2 text-on-surface-variant">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a female school administrator in a bright, modern office setting. She has a friendly expression, wearing a tailored navy blazer. The lighting is soft and high-key, reflecting a corporate and stable educational environment with a palette of whites and deep slates." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmA-QuCLKOJ8jbT9xX6fgK9HW7-1CVNlHGmj2HDBhok928DKjoeXV8zhlQ9UC9sjpvwXKEWidpHzpxDV1nXnZzDqXUNtlGlGq4pNrov1p2Lba8S01mnR2xJuoBM5_RxsUZMtbaqHBTQoydH09_n65nU22a98vEX59swT8lSaIubLPIbMmEDTXFAG79DBl3kHXJn40tLwqMd94L002Nc2JiEAgCb_kintNt44tuOvqYtbPlf2eTYMJWeU4mwg1Ew3pWTHcQf5k3FRU"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-20 px-margin-mobile max-w-container-max mx-auto">
+<!-- Header Section -->
+<section class="mt-4 mb-6">
+<div class="flex justify-between items-end mb-4">
+<div>
+<h2 class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface">Students</h2>
+<p class="text-label-md font-label-md text-on-surface-variant">Manage 1,248 enrolled learners</p>
+</div>
+<button class="flex items-center gap-2 text-secondary font-label-md px-3 py-2 bg-secondary-container/20 rounded-lg">
+<span class="material-symbols-outlined text-[18px]">auto_fix</span>
+<span>Bulk Actions</span>
+</button>
+</div>
+<!-- Search and Filter Shell -->
+<div class="space-y-4">
+<!-- Search Bar -->
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-secondary transition-colors">search</span>
+<input class="w-full pl-12 pr-4 py-3 bg-surface-container-low border border-outline-variant rounded-xl focus:ring-2 focus:ring-secondary/20 focus:border-secondary outline-none transition-all placeholder:text-on-surface-variant/50 text-body-md font-body-md" placeholder="Search by name or admission number..." type="text"/>
+</div>
+<!-- Filter Chips -->
+<div class="flex gap-2 overflow-x-auto no-scrollbar pb-2">
+<button class="px-4 py-2 bg-secondary text-on-secondary rounded-full text-label-md font-label-md whitespace-nowrap shadow-sm">All Students</button>
+<button class="px-4 py-2 bg-surface-container-high text-on-surface-variant border border-outline-variant rounded-full text-label-md font-label-md whitespace-nowrap hover:bg-surface-variant transition-colors">JSS 1</button>
+<button class="px-4 py-2 bg-surface-container-high text-on-surface-variant border border-outline-variant rounded-full text-label-md font-label-md whitespace-nowrap hover:bg-surface-variant transition-colors">JSS 2</button>
+<button class="px-4 py-2 bg-surface-container-high text-on-surface-variant border border-outline-variant rounded-full text-label-md font-label-md whitespace-nowrap hover:bg-surface-variant transition-colors">SSS 1</button>
+<button class="px-4 py-2 bg-surface-container-high text-on-surface-variant border border-outline-variant rounded-full text-label-md font-label-md whitespace-nowrap hover:bg-surface-variant transition-colors">SSS 2</button>
+<button class="px-4 py-2 bg-surface-container-high text-on-surface-variant border border-outline-variant rounded-full text-label-md font-label-md whitespace-nowrap hover:bg-surface-variant transition-colors">SSS 3</button>
+</div>
+</div>
+</section>
+<!-- Student List Shell -->
+<section class="space-y-3">
+<!-- Student Card 1 -->
+<div class="student-card-active bg-surface-container-lowest border border-outline-variant p-stack-md rounded-2xl flex items-center gap-4 cursor-pointer">
+<div class="w-14 h-14 rounded-xl overflow-hidden bg-surface-variant flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A portrait of a young African male student wearing a crisp white school uniform shirt. He is smiling confidently in a bright, sunlit classroom background. The style is modern and clean, with a focus on stability and clarity, using the brand's secondary emerald tones as highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuChWC9NGGfWvRDmhOtHWIn47gD3P5ee_1ocr2SxW7KuLtYR6RE3lwn2O2qQl8aiBt9OQRfGFKx_dI8Qa-PyxK_Nj9RGymR95lkvc-f2_DwBOhxeAzO7EDcNop67r869xgxufDQsAFm6GPwgglwFK66y4TYkRimXbs36E6hQXBXOjrHnREk6aBxMtKdvDgzChgHjd3F_tZYCuioJl9jvfCp9o_ISz9eMxTIWtm78s35-VLlFAARZZqn2cp069aV9WZZL-B2dJovPXwU"/>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start">
+<h3 class="text-body-md font-bold text-on-surface">Adebayo Chinedu</h3>
+<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[10px] font-label-sm rounded-full uppercase tracking-wider">Active</span>
+</div>
+<p class="text-label-md font-label-md text-on-surface-variant">ADM-2024-0482</p>
+<div class="flex items-center gap-1 mt-1 text-[12px] text-on-surface-variant/70">
+<span class="material-symbols-outlined text-[14px]">school</span>
+<span>SSS 2 • Science A</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</div>
+<!-- Student Card 2 -->
+<div class="student-card-active bg-surface-container-lowest border border-outline-variant p-stack-md rounded-2xl flex items-center gap-4 cursor-pointer">
+<div class="w-14 h-14 rounded-xl overflow-hidden bg-surface-variant flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A portrait of a young African female student with braided hair, wearing a green school sweater over a white shirt. She has a focused and studious expression. The lighting is natural and bright, reinforcing an atmosphere of academic excellence and growth. The overall aesthetic is minimal and high-end." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZHfUk3iyiWlq4djA7L1EE3W9tOGI4GZZ2f9quwSdbd0gI90vVLMbaRJJQZVJNammgGuvg1VDhUtMDboXVz14ioXlo9AgxHUjck1s7rZ8hJ5hnRq9HaX6hcqWWqhIXJ_JopmlI9eCHy_TSrV3IhBtILO9N83Xs8LkiJFRMS5rcmFaeii7sMlt-kl9icNuZVQhK8UjAsfSRDKocT2jTn6E0qH-ep3Rp9TOhHvODfe_sO3Pi96tCcjZ-zbd7B4skHlrTn9TJFs5SvMo"/>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start">
+<h3 class="text-body-md font-bold text-on-surface">Fatima Suleiman</h3>
+<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[10px] font-label-sm rounded-full uppercase tracking-wider">Active</span>
+</div>
+<p class="text-label-md font-label-md text-on-surface-variant">ADM-2024-0911</p>
+<div class="flex items-center gap-1 mt-1 text-[12px] text-on-surface-variant/70">
+<span class="material-symbols-outlined text-[14px]">school</span>
+<span>JSS 3 • Arts C</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</div>
+<!-- Student Card 3 (On Leave) -->
+<div class="student-card-active bg-surface-container-lowest border border-outline-variant p-stack-md rounded-2xl flex items-center gap-4 cursor-pointer">
+<div class="w-14 h-14 rounded-xl overflow-hidden bg-surface-variant flex-shrink-0 grayscale opacity-70">
+<img class="w-full h-full object-cover" data-alt="A portrait of a young teenage student in a casual polo shirt, looking slightly away from the camera. The background is a soft-focus library setting. The lighting is calm and muted, indicating a temporary absence. The visual style follows the corporate EduTech aesthetic with slate and blue primary colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJhWPf3XBmDJ2pEZuSeD_NN-WrvuPA51mmOSUZndxgTSAjfUU2IBcKqEps8jTJ8wUVdAhAm6-Gap1ngfPmPHT9feLfocRn-hX6N4dWsjkttK4TqDRuziH2us2V6a_1T0j2leViJtgltFLpTB-EksskFlay4cb_G3XPiDN7qmVszUYNaqWCUJJxhN6T_fbr8kMUG3Tv5rWCQE8kg8btTxLwX_gbs9klkYfdHXELevVgNHeFb3XEOgOhZmD5OVEICwcLy6As5bziV_M"/>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start">
+<h3 class="text-body-md font-bold text-on-surface">Kwame Mensah</h3>
+<span class="px-2 py-0.5 bg-surface-variant text-on-surface-variant text-[10px] font-label-sm rounded-full uppercase tracking-wider">On Leave</span>
+</div>
+<p class="text-label-md font-label-md text-on-surface-variant">ADM-2023-1104</p>
+<div class="flex items-center gap-1 mt-1 text-[12px] text-on-surface-variant/70">
+<span class="material-symbols-outlined text-[14px]">school</span>
+<span>SSS 1 • Commercial</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</div>
+<!-- Student Card 4 (Suspended) -->
+<div class="student-card-active bg-surface-container-lowest border border-outline-variant p-stack-md rounded-2xl flex items-center gap-4 cursor-pointer">
+<div class="w-14 h-14 rounded-xl overflow-hidden bg-surface-variant flex-shrink-0 border-2 border-error/20">
+<img class="w-full h-full object-cover" data-alt="A portrait of a male student with a neutral expression. He is photographed against a plain, professional background. The color palette emphasizes high contrast with primary deep slate and whites. The overall feel is one of clarity and administrative order." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5wUqzMKjKe2ECWRikJX6P-89lzwEXX-iLbz0XMLA7f0SDr799chtRoFgFUDf5Aa5PXqsor01d-VH7ZhImFZtJNonYGwO0l0PxX4BysWA35W8BigT1u8LJqUVjWB9qwzZ7KUtNVnulULdUZOPBLHDJ1U6ZPk_qPKrcJJmK6A52qf1J2VcpYNJyQHS9WRuYHo_rPOBJpXdZ2ce7VX8S4Z9PTAXNvbzt6Oym15-H6_f8F3h2jc6PoKy1x9VEbuCfh6nHPe9Q66L8HKU"/>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start">
+<h3 class="text-body-md font-bold text-on-surface">Oluchi Okafor</h3>
+<span class="px-2 py-0.5 bg-error-container text-on-error-container text-[10px] font-label-sm rounded-full uppercase tracking-wider">Suspended</span>
+</div>
+<p class="text-label-md font-label-md text-on-surface-variant">ADM-2022-0056</p>
+<div class="flex items-center gap-1 mt-1 text-[12px] text-on-surface-variant/70">
+<span class="material-symbols-outlined text-[14px]">school</span>
+<span>SSS 3 • Science B</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</div>
+<!-- Student Card 5 -->
+<div class="student-card-active bg-surface-container-lowest border border-outline-variant p-stack-md rounded-2xl flex items-center gap-4 cursor-pointer">
+<div class="w-14 h-14 rounded-xl overflow-hidden bg-surface-variant flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A portrait of a young male student wearing a white school uniform. He has a warm smile and is sitting at a desk with a laptop. The lighting is bright and cheerful, suggesting innovation and digital growth in the African educational landscape. Professional and high-end SaaS aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSqWAOnGXjkrDx418uAVr9y5SlW6sm2m7DuOknuEsOSsD4ldl6dJZz4S-MFAjKh3q6_QPoTDh-ott0MLfap3ZnMC-K9av2guaEVzMmkrAjsTkeItQ2-zag5k5WnZVzqznmr1BkPW1vNxEpzWPb5WugFMKXUEnJOLqikUvE7sop9WyFeHD_7lThDiAt3rVNr7fcti-axtHF6nlUqBmdE83llh7GtGZW-Z_IROEao2WASZaOAmeQ2ewNfN49EsRDPB9tl-GKycgYa5c"/>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start">
+<h3 class="text-body-md font-bold text-on-surface">Zainab Al-Hassan</h3>
+<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[10px] font-label-sm rounded-full uppercase tracking-wider">Active</span>
+</div>
+<p class="text-label-md font-label-md text-on-surface-variant">ADM-2024-1288</p>
+<div class="flex items-center gap-1 mt-1 text-[12px] text-on-surface-variant/70">
+<span class="material-symbols-outlined text-[14px]">school</span>
+<span>JSS 1 • Gold</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</div>
+</section>
+<!-- Stats Overview (Bento Style) -->
+<section class="mt-8 mb-4 grid grid-cols-2 gap-4">
+<div class="bg-primary-container p-stack-md rounded-2xl text-on-primary">
+<p class="text-label-sm font-label-sm uppercase opacity-70">Enrollment</p>
+<p class="text-headline-md font-headline-md mt-1">+12%</p>
+<div class="w-full h-1 bg-on-primary/20 rounded-full mt-3">
+<div class="w-3/4 h-full bg-secondary-fixed rounded-full"></div>
+</div>
+</div>
+<div class="bg-surface-container border border-outline-variant p-stack-md rounded-2xl">
+<p class="text-label-sm font-label-sm uppercase text-on-surface-variant">Attendance</p>
+<p class="text-headline-md font-headline-md text-on-surface mt-1">94.2%</p>
+<div class="flex items-center gap-1 mt-2 text-[12px] text-secondary">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+<span>Above target</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-24 right-6 w-14 h-14 bg-secondary text-on-secondary rounded-2xl shadow-lg flex items-center justify-center active:scale-90 transition-transform z-40">
+<span class="material-symbols-outlined text-[32px]">person_add</span>
+</button>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 w-full h-16 bg-surface border-t border-outline-variant flex justify-around items-center px-4 z-50">
+<div class="flex flex-col items-center gap-1 text-on-surface-variant cursor-pointer group">
+<span class="material-symbols-outlined group-hover:text-secondary transition-colors">dashboard</span>
+<span class="text-[10px] font-label-sm">Dashboard</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-on-secondary-container bg-secondary-container px-4 py-1 rounded-xl cursor-pointer">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="text-[10px] font-label-sm font-bold">Students</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-on-surface-variant cursor-pointer group">
+<span class="material-symbols-outlined group-hover:text-secondary transition-colors">psychology</span>
+<span class="text-[10px] font-label-sm">AI Planner</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-on-surface-variant cursor-pointer group">
+<span class="material-symbols-outlined group-hover:text-secondary transition-colors">payments</span>
+<span class="text-[10px] font-label-sm">Finance</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-on-surface-variant cursor-pointer group">
+<span class="material-symbols-outlined group-hover:text-secondary transition-colors">settings</span>
+<span class="text-[10px] font-label-sm">Settings</span>
+</div>
+</nav>
+<!-- Micro-interaction Script -->
+<script>
+        // Simple ripple-like effect on card press
+        document.querySelectorAll('.student-card-active').forEach(card => {
+            card.addEventListener('click', function() {
+                this.classList.add('bg-surface-variant/30');
+                setTimeout(() => {
+                    this.classList.remove('bg-surface-variant/30');
+                    // In a real app, this would navigate to the profile
+                    console.log('Navigating to student profile...');
+                }, 200);
+            });
+        });
+
+        // Filter chip selection logic
+        const filterChips = document.querySelectorAll('button.rounded-full');
+        filterChips.forEach(chip => {
+            chip.addEventListener('click', function() {
+                filterChips.forEach(c => {
+                    c.classList.remove('bg-secondary', 'text-on-secondary', 'shadow-sm');
+                    c.classList.add('bg-surface-container-high', 'text-on-surface-variant');
+                });
+                this.classList.add('bg-secondary', 'text-on-secondary', 'shadow-sm');
+                this.classList.remove('bg-surface-container-high', 'text-on-surface-variant');
+            });
+        });
+    </script>
+</body></html>

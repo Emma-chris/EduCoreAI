@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Teacher Performance Analytics | EduOS Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#6ffbbe",
+                    "inverse-surface": "#2d3133",
+                    "on-tertiary-container": "#3980f4",
+                    "surface-container-low": "#f2f4f6",
+                    "on-tertiary-fixed-variant": "#004395",
+                    "on-tertiary-fixed": "#001a42",
+                    "on-background": "#191c1e",
+                    "on-surface-variant": "#45464d",
+                    "on-secondary-fixed-variant": "#005236",
+                    "error": "#ba1a1a",
+                    "on-tertiary": "#ffffff",
+                    "surface-container": "#eceef0",
+                    "surface-bright": "#f7f9fb",
+                    "surface": "#f7f9fb",
+                    "on-error-container": "#93000a",
+                    "primary": "#000000",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "inverse-on-surface": "#eff1f3",
+                    "surface-variant": "#e0e3e5",
+                    "secondary": "#006c49",
+                    "outline-variant": "#c6c6cd",
+                    "surface-tint": "#565e74",
+                    "on-surface": "#191c1e",
+                    "tertiary-fixed-dim": "#adc6ff",
+                    "surface-dim": "#d8dadc",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed": "#d8e2ff",
+                    "tertiary-container": "#001a42",
+                    "surface-container-high": "#e6e8ea",
+                    "primary-fixed": "#dae2fd",
+                    "on-secondary-fixed": "#002113",
+                    "background": "#f7f9fb",
+                    "outline": "#76777d",
+                    "on-error": "#ffffff",
+                    "on-secondary-container": "#00714d",
+                    "primary-container": "#131b2e",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-primary": "#bec6e0",
+                    "on-primary-fixed": "#131b2e",
+                    "on-primary-container": "#7c839b",
+                    "surface-container-highest": "#e0e3e5",
+                    "secondary-container": "#6cf8bb",
+                    "primary-fixed-dim": "#bec6e0",
+                    "tertiary": "#000000",
+                    "secondary-fixed-dim": "#4edea3",
+                    "on-primary-fixed-variant": "#3f465c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "container-max": "1440px",
+                    "stack-sm": "8px",
+                    "gutter": "24px",
+                    "stack-lg": "32px",
+                    "margin-desktop": "48px",
+                    "margin-mobile": "16px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "label-md": ["Geist"],
+                    "headline-lg-mobile": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-sm": ["Geist"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .ai-gradient-border {
+            position: relative;
+            background: #ffffff;
+            border-radius: 1rem;
+            z-index: 1;
+        }
+        .ai-gradient-border::before {
+            content: '';
+            position: absolute;
+            top: -1px; left: -1px; right: -1px; bottom: -1px;
+            background: linear-gradient(135deg, #006c49, #3980f4);
+            border-radius: 1.1rem;
+            z-index: -1;
+            opacity: 0.3;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="text-on-surface">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-4 h-16 bg-surface border-b border-outline-variant">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of an African male school administrator with a warm smile, wearing a tailored charcoal suit and a light blue shirt. The background is a soft-focus, modern academic office with bookshelves and large windows, reflecting a clean and professional EduTech atmosphere with natural daylight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOflvsDnKlHQpmZ3qP8pUdiJi7jm5S0DcN43gVXjMk3id0TCQYLX2s08z2IPYKYvqttvF0uSS6Ijuab7i6uzVZ2Kxvx-jeTN0kDc32WnIWPRvuBu_EVhGe4fb7g4KEailOZdf2JZD4DAM-fcoDukgXh0jHnFAUF_mzoRJglQeh46YX8pW7JLhkfnDzfN01CH8TUx4FN-0kRDT80hDKBKIc1K2L1ouWNUoSOFV1gzd-n7eyrjX1LOGuCP3GxmTlbk10Jqsj4NrucCU"/>
+</div>
+<span class="font-headline-md text-headline-md font-bold text-secondary">EduOS Admin</span>
+</div>
+<button class="w-10 h-10 flex items-center justify-center text-secondary hover:bg-surface-container-high transition-colors rounded-full">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-20 pb-24 px-4 space-y-6">
+<!-- Teacher Profile Header -->
+<section class="flex flex-col items-center text-center py-4 bg-surface-container-lowest rounded-2xl border border-outline-variant p-6">
+<div class="relative mb-4">
+<div class="w-24 h-24 rounded-2xl overflow-hidden border-2 border-secondary-container shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A high-resolution professional headshot of Dr. Aris Thorne, an esteemed senior academic. He has a distinguished look with salt-and-pepper hair, wearing stylish glasses and a smart-casual olive blazer over a white turtleneck. The lighting is crisp and scholarly, set against a blurred background of a high-tech school laboratory with deep greens and clean white surfaces." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGb5r2gk7bUzIclpe4w6-BHkneNB3IHXf61xidduxchcOTYkPAVO_0lFK71sTTxJQ1fWjHxOfD09K92ZoPzZ2E1DHTLccCTSFRWKHIeopYDLv8JnaMn84HULfEsPMzvQbVt6X86huUQmEQQc9LRR3uTJ5mjvUp0btiVovxpo3U_RnzlrbHqi2-OlUdp2qbYbZQsFSdCDzgTpfq9tT8lt5NiFTz9nC4FhrEOPbhjRJukYo3yqeIVAm389kI58dm2ePaEGtUzCpob5s"/>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-secondary text-on-secondary w-8 h-8 rounded-full flex items-center justify-center border-2 border-surface shadow-sm">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</div>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Dr. Aris Thorne</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">Lead Physics Faculty • St. Andrews Academy</p>
+<div class="mt-6 w-full flex items-center justify-center gap-8 py-4 border-t border-outline-variant">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Faculty Impact</span>
+<span class="font-headline-md text-headline-md text-secondary">98.4<span class="text-label-md font-normal text-on-surface-variant ml-1">/100</span></span>
+</div>
+<div class="w-px h-10 bg-outline-variant"></div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Peer Rating</span>
+<div class="flex items-center text-secondary">
+<span class="font-headline-md text-headline-md mr-1">4.9</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Student Engagement & Outcomes (Bento Layout) -->
+<div class="bento-grid">
+<!-- Attendance Card -->
+<div class="col-span-1 bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">calendar_today</span>
+<h3 class="font-label-md text-label-md text-on-surface-variant">Attendance</h3>
+</div>
+<p class="font-headline-md text-headline-md">94.2%</p>
+</div>
+<div class="mt-4 flex items-center gap-1 text-secondary-fixed-dim bg-secondary/10 px-2 py-0.5 rounded-full w-fit">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+<span class="text-label-sm font-label-sm">2.4%</span>
+</div>
+</div>
+<!-- Engagement Rate -->
+<div class="col-span-1 bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-on-tertiary-container text-[20px]">bolt</span>
+<h3 class="font-label-md text-label-md text-on-surface-variant">Engagement</h3>
+</div>
+<p class="font-headline-md text-headline-md">88.7%</p>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full mt-4 overflow-hidden">
+<div class="h-full bg-tertiary-fixed-dim" style="width: 88.7%"></div>
+</div>
+</div>
+<!-- Academic Outcomes -->
+<div class="col-span-2 bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-label-md text-label-md text-on-surface-variant font-bold uppercase">Academic Outcomes</h3>
+<span class="material-symbols-outlined text-on-surface-variant">insights</span>
+</div>
+<div class="flex justify-between items-center h-24 mb-6 px-2">
+<div class="relative flex items-center justify-center w-20 h-20">
+<svg class="w-full h-full -rotate-90" viewbox="0 0 36 36">
+<path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#eceef0" stroke-width="3"></path>
+<path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#006c49" stroke-dasharray="86, 100" stroke-linecap="round" stroke-width="3"></path>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="text-[14px] font-bold text-on-surface">86%</span>
+</div>
+</div>
+<div class="flex-1 flex justify-center">
+<div class="flex items-end gap-1.5 h-16">
+<div class="w-2 bg-surface-container rounded-full h-[60%]"></div>
+<div class="w-2 bg-surface-container rounded-full h-[75%]"></div>
+<div class="w-2 bg-secondary rounded-full h-[95%]"></div>
+<div class="w-2 bg-surface-container rounded-full h-[70%]"></div>
+<div class="w-2 bg-surface-container rounded-full h-[85%]"></div>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<div class="bg-secondary/10 p-2 rounded-xl flex items-center gap-1">
+<span class="material-symbols-outlined text-secondary text-[20px]">trending_up</span>
+<span class="text-headline-md font-bold text-secondary">+12.4%</span>
+</div>
+</div>
+</div>
+<div class="flex justify-between text-on-surface-variant"><div class="flex flex-col">
+<span class="text-label-sm font-label-sm uppercase tracking-wider">Average Grade</span>
+<span class="font-label-md text-on-surface">Distinction (A-)</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-label-sm font-label-sm uppercase tracking-wider">Performance Trend</span>
+<span class="font-label-md text-secondary">Consistent Growth</span>
+</div></div>
+</div>
+</div>
+<!-- AI Insights Section -->
+<section class="ai-gradient-border p-5">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-on-tertiary-container animate-pulse">auto_awesome</span>
+<h3 class="font-label-md text-label-md text-primary font-bold uppercase tracking-widest">AI Performance Synthesis</h3>
+</div>
+<div class="space-y-4">
+<div class="p-3 bg-tertiary-fixed/10 rounded-xl border border-tertiary-fixed/20">
+<p class="font-body-md text-body-md text-on-surface">
+<span class="font-bold text-secondary">Insight:</span> Dr. Thorne's Physics labs have a <span class="font-bold">94% engagement rate</span>, significantly outperforming regional benchmarks.
+                    </p>
+</div>
+<div class="p-3 bg-secondary-container/10 rounded-xl border border-secondary-container/20">
+<p class="font-body-md text-body-md text-on-surface italic">
+                        "Suggest scheduling Grade 12 Advanced Mechanics seminars for Thursday afternoon to maximize peak student availability and energy cycles observed in recent biometric data."
+                    </p>
+</div>
+<button class="w-full py-3 bg-primary text-on-primary rounded-xl font-label-md flex items-center justify-center gap-2 transition-transform active:scale-95">
+<span>Generate Action Plan</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</section>
+<!-- Growth & Development -->
+<section class="bg-surface-container-lowest rounded-2xl border border-outline-variant p-5">
+<h3 class="font-label-md text-label-md text-on-surface-variant font-bold uppercase mb-4">Growth &amp; Development</h3>
+<div class="space-y-4">
+<!-- Milestone 1 -->
+<div class="flex gap-4 items-start">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container shrink-0">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+</div>
+<div class="w-0.5 h-full bg-surface-container mt-1"></div>
+</div>
+<div class="pb-6">
+<p class="font-label-md text-label-md text-on-surface">Advanced AI Pedagogy Certification</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Completed Oct 2023 • MIT Digital Learning</p>
+</div>
+</div>
+<!-- Milestone 2 -->
+<div class="flex gap-4 items-start">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container shrink-0">
+<span class="material-symbols-outlined text-[18px]">workspace_premium</span>
+</div>
+<div class="w-0.5 h-full bg-surface-container mt-1"></div>
+</div>
+<div class="pb-6">
+<p class="font-label-md text-label-md text-on-surface">Curriculum Innovation Grant</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Awarded June 2023 • EduCore Foundation</p>
+</div>
+</div>
+<!-- Milestone 3 -->
+<div class="flex gap-4 items-start">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant shrink-0">
+<span class="material-symbols-outlined text-[18px]">hourglass_empty</span>
+</div>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Quantum Literacy Workshop</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">In Progress • 65% Complete</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface border-t border-outline-variant shadow-lg rounded-t-xl h-20">
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-container-low transition-all active:scale-90 duration-150">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl p-2 active:scale-90 duration-150">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">school</span>
+<span class="font-label-sm text-label-sm">Students</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-container-low transition-all active:scale-90 duration-150">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-label-sm text-label-sm">Finance</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-container-low transition-all active:scale-90 duration-150">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-label-sm text-label-sm">AI Insights</span>
+</button>
+</nav>
+<script>
+        // Simple Micro-interactions
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.classList.add('scale-95');
+            });
+            button.addEventListener('mouseup', () => {
+                button.classList.remove('scale-95');
+            });
+        });
+    </script>
+</body></html>

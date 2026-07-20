@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>EduCore AI - Admin Terminal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "background": "#f7f9fb",
+                "surface-container-highest": "#e0e3e5",
+                "on-error": "#ffffff",
+                "surface-container-high": "#e6e8ea",
+                "on-surface-variant": "#45464d",
+                "inverse-surface": "#2d3133",
+                "surface-container": "#eceef0",
+                "on-tertiary-fixed-variant": "#004395",
+                "on-primary-container": "#7c839b",
+                "inverse-primary": "#bec6e0",
+                "on-primary-fixed-variant": "#3f465c",
+                "tertiary-fixed-dim": "#adc6ff",
+                "on-tertiary-fixed": "#001a42",
+                "primary": "#000000",
+                "secondary-fixed": "#6ffbbe",
+                "inverse-on-surface": "#eff1f3",
+                "secondary-container": "#6cf8bb",
+                "on-primary": "#ffffff",
+                "on-tertiary": "#ffffff",
+                "surface-container-low": "#f2f4f6",
+                "on-error-container": "#93000a",
+                "outline": "#76777d",
+                "surface-dim": "#d8dadc",
+                "on-secondary": "#ffffff",
+                "outline-variant": "#c6c6cd",
+                "on-surface": "#191c1e",
+                "on-secondary-fixed": "#002113",
+                "error": "#ba1a1a",
+                "tertiary-container": "#001a42",
+                "primary-container": "#131b2e",
+                "error-container": "#ffdad6",
+                "on-secondary-fixed-variant": "#005236",
+                "surface": "#f7f9fb",
+                "surface-bright": "#f7f9fb",
+                "surface-variant": "#e0e3e5",
+                "secondary": "#006c49",
+                "on-primary-fixed": "#131b2e",
+                "tertiary-fixed": "#d8e2ff",
+                "tertiary": "#000000",
+                "surface-container-lowest": "#ffffff",
+                "surface-tint": "#565e74",
+                "on-tertiary-container": "#3980f4",
+                "on-background": "#191c1e",
+                "secondary-fixed-dim": "#4edea3",
+                "primary-fixed-dim": "#bec6e0",
+                "primary-fixed": "#dae2fd",
+                "on-secondary-container": "#00714d"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "2xl": "1rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "gutter": "24px",
+                "margin-desktop": "48px",
+                "stack-md": "16px",
+                "margin-mobile": "16px",
+                "stack-sm": "8px",
+                "container-max": "1440px",
+                "base": "4px",
+                "stack-lg": "32px"
+            },
+            "fontFamily": {
+                "label-sm": ["Geist"],
+                "headline-lg-mobile": ["Inter"],
+                "headline-lg": ["Inter"],
+                "display-lg": ["Inter"],
+                "headline-md": ["Inter"],
+                "body-lg": ["Inter"],
+                "label-md": ["Geist"],
+                "body-md": ["Inter"]
+            },
+            "fontSize": {
+                "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            -webkit-tap-highlight-color: transparent;
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(226, 232, 240, 0.5);
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Mobile SideNav Animation */
+        #mobile-sidenav {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #mobile-sidenav.closed {
+            transform: translateX(-100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface">
+<!-- Mobile Top Bar -->
+<header class="fixed top-0 left-0 right-0 h-16 bg-surface-container-lowest z-40 flex items-center justify-between px-margin-mobile border-b border-outline-variant md:hidden">
+<div class="flex items-center gap-3">
+<button class="p-2 -ml-2 rounded-full hover:bg-surface-container-high transition-colors" onclick="toggleSidebar()">
+<span class="material-symbols-outlined text-on-surface">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md text-primary">EduCore AI</h1>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a school administrator in African business attire, soft lighting, minimalist office background, high-end photography style, focused and trustworthy expression, using a clean light-mode aesthetic with professional teal accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvda_MC3meKR5VxGhBihEFRQyaiJEJ9IC42C1cWgpVkjgPsIDl_yd7eVJpN-ur2QPIVegglXDALwF_OZ9YHbFmaELZvlMxkgfTTB3iQp2WMxAVuAy49rVYjrtFXIwGzAECMBUixVx4kAGSCjBZqOWQKthDLO6RpA2ma6wzLS1zvwMY8Pd96CKarOA8PaLTNsVAB1IAJswUfUOrjV9cWRxOn-uGj-pfFxr4Oj53t6qGOMHIrySSvhyXuwJkjm2LelikowfSYHt6WFM"/>
+</div>
+</header>
+<!-- SideNavBar (Shared Component Identity) -->
+<!-- Closed by default on mobile, fixed on desktop -->
+<aside class="fixed left-0 top-0 h-full w-64 z-50 bg-surface-container-low border-r border-outline-variant flex flex-col p-stack-md closed md:translate-x-0" id="mobile-sidenav">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h2 class="font-headline-md text-headline-md font-black text-primary">EduCore AI</h2>
+<p class="font-label-md text-label-md text-on-surface-variant">Admin Terminal</p>
+</div>
+<button class="md:hidden p-2 rounded-full hover:bg-surface-container-high" onclick="toggleSidebar()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<nav class="flex-1 space-y-2">
+<!-- Active State: Dashboard -->
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container rounded-lg font-bold transition-transform active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-label-md text-label-md">Students</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="font-label-md text-label-md">Teachers</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+<span class="font-label-md text-label-md">AI Lesson Planner</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-label-md text-label-md">Finance</span>
+</a>
+</nav>
+<div class="pt-6 border-t border-outline-variant mt-auto space-y-2">
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+<button class="w-full mt-4 bg-secondary text-on-secondary py-3 rounded-lg font-bold flex items-center justify-center gap-2 shadow-sm transition-transform active:scale-95">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                Generate Plan
+            </button>
+</div>
+</aside>
+<!-- Overlay for mobile sidenav -->
+<div class="fixed inset-0 bg-black/50 z-40 hidden md:hidden opacity-0 transition-opacity" id="sidenav-overlay" onclick="toggleSidebar()"></div>
+<!-- Main Content Canvas -->
+<main class="pt-20 md:pt-8 pb-24 px-margin-mobile md:ml-64 max-w-screen-xl mx-auto">
+<!-- School at a Glance Header -->
+<header class="mb-8">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-4">School at a Glance</h2>
+<div class="flex overflow-x-auto gap-4 hide-scrollbar -mx-margin-mobile px-margin-mobile pb-2">
+<!-- Total Students -->
+<div class="min-w-[140px] flex-shrink-0 bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container mb-3">
+<span class="material-symbols-outlined text-[18px]">group</span>
+</div>
+<p class="text-on-surface-variant font-label-md text-label-md">Total Students</p>
+<p class="font-headline-md text-headline-md text-primary mt-1">1,284</p>
+<span class="text-[12px] text-secondary font-bold">+12% vs last term</span>
+</div>
+<!-- Total Teachers -->
+<div class="min-w-[140px] flex-shrink-0 bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant">
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed-variant mb-3">
+<span class="material-symbols-outlined text-[18px]">school</span>
+</div>
+<p class="text-on-surface-variant font-label-md text-label-md">Total Teachers</p>
+<p class="font-headline-md text-headline-md text-primary mt-1">86</p>
+<span class="text-[12px] text-on-surface-variant">4 new hires pending</span>
+</div>
+<!-- Attendance Rate -->
+<div class="min-w-[140px] flex-shrink-0 bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-fixed mb-3">
+<span class="material-symbols-outlined text-[18px]">event_available</span>
+</div>
+<p class="text-on-surface-variant font-label-md text-label-md">Attendance</p>
+<p class="font-headline-md text-headline-md text-primary mt-1">94.2%</p>
+<span class="text-[12px] text-error font-bold">-1.5% this week</span>
+</div>
+</div>
+</header>
+<!-- Financial Health Section -->
+<section class="mb-8">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-3">Financial Health</h3>
+<div class="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant relative overflow-hidden">
+<div class="flex justify-between items-start mb-6">
+<div>
+<p class="text-on-surface-variant font-label-md text-label-md">Fee Collection Progress</p>
+<p class="font-headline-lg text-headline-lg text-primary">₦4.2M / ₦5.5M</p>
+</div>
+<div class="w-12 h-12 flex items-center justify-center rounded-full bg-secondary text-on-secondary">
+<span class="material-symbols-outlined">payments</span>
+</div>
+</div>
+<!-- Collection Progress Bar -->
+<div class="w-full bg-surface-container-high h-4 rounded-full overflow-hidden mb-2">
+<div class="bg-secondary h-full rounded-full" style="width: 76%;"></div>
+</div>
+<div class="flex justify-between text-label-sm font-label-sm">
+<span class="text-on-surface-variant">76% of projected collected</span>
+<span class="text-secondary">Term 2 Goal</span>
+</div>
+<!-- Subtle Decorative Background Pattern -->
+<div class="absolute -right-8 -top-8 opacity-[0.03] pointer-events-none">
+<span class="material-symbols-outlined text-[120px]">account_balance_wallet</span>
+</div>
+</div>
+</section>
+<!-- Quick Action Grid -->
+<section class="mb-8">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-3">Quick Actions</h3>
+<div class="bento-grid">
+<button class="bg-white p-4 rounded-2xl border border-outline-variant flex flex-col gap-3 items-start text-left active:scale-95 transition-transform duration-150 shadow-sm">
+<div class="p-2 rounded-lg bg-surface-container-high text-secondary">
+<span class="material-symbols-outlined">person_add</span>
+</div>
+<span class="font-label-md text-label-md text-primary">Student Registration</span>
+</button>
+<button class="bg-white p-4 rounded-2xl border border-outline-variant flex flex-col gap-3 items-start text-left active:scale-95 transition-transform duration-150 shadow-sm">
+<div class="p-2 rounded-lg bg-surface-container-high text-secondary">
+<span class="material-symbols-outlined">request_quote</span>
+</div>
+<span class="font-label-md text-label-md text-primary">Fee Collection</span>
+</button>
+<button class="bg-white p-4 rounded-2xl border border-outline-variant flex flex-col gap-3 items-start text-left active:scale-95 transition-transform duration-150 shadow-sm">
+<div class="p-2 rounded-lg bg-surface-container-high text-secondary">
+<span class="material-symbols-outlined">edit_document</span>
+</div>
+<span class="font-label-md text-label-md text-primary">Result Entry</span>
+</button>
+<button class="bg-white p-4 rounded-2xl border border-outline-variant flex flex-col gap-3 items-start text-left active:scale-95 transition-transform duration-150 shadow-sm">
+<div class="p-2 rounded-lg bg-surface-container-high text-secondary">
+<span class="material-symbols-outlined">analytics</span>
+</div>
+<span class="font-label-md text-label-md text-primary">AI Insights</span>
+</button>
+</div>
+</section>
+<!-- Recent Activities / Alerts -->
+<section class="mb-8">
+<div class="flex justify-between items-center mb-3">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Alerts &amp; Activities</h3>
+<button class="text-secondary text-label-sm font-bold">View All</button>
+</div>
+<div class="space-y-3">
+<!-- Alert Card 1 -->
+<div class="flex gap-4 p-4 bg-white rounded-2xl border-l-4 border-error border-y border-r border-outline-variant">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-error-container flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-[20px]">warning</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between mb-1">
+<span class="font-label-md text-label-md text-primary">Critical Attendance</span>
+<span class="text-[10px] text-on-surface-variant">2m ago</span>
+</div>
+<p class="text-[13px] text-on-surface-variant leading-relaxed">Grade 9 attendance dropped below 75% for the 3rd consecutive day.</p>
+<button class="mt-2 text-error text-[12px] font-bold flex items-center gap-1">
+                            Notify Grade Head <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Alert Card 2 -->
+<div class="flex gap-4 p-4 bg-white rounded-2xl border-l-4 border-secondary border-y border-r border-outline-variant">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-[20px]">pending_actions</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between mb-1">
+<span class="font-label-md text-label-md text-primary">Fee Approval Pending</span>
+<span class="text-[10px] text-on-surface-variant">45m ago</span>
+</div>
+<p class="text-[13px] text-on-surface-variant leading-relaxed">12 new scholarship applications require your final approval.</p>
+</div>
+</div>
+<!-- Alert Card 3 -->
+<div class="flex gap-4 p-4 bg-white rounded-2xl border-l-4 border-primary border-y border-r border-outline-variant">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[20px]">history_edu</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between mb-1">
+<span class="font-label-md text-label-md text-primary">Lesson Plans Generated</span>
+<span class="text-[10px] text-on-surface-variant">2h ago</span>
+</div>
+<p class="text-[13px] text-on-surface-variant leading-relaxed">AI has completed weekly lesson planning for the Science Department.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Data Visualization Placeholder (AI Driven) -->
+<section class="mb-20">
+<div class="bg-primary-container p-6 rounded-2xl text-on-primary border border-outline relative overflow-hidden">
+<div class="relative z-10">
+<h3 class="font-headline-md text-headline-md mb-2">Performance Forecast</h3>
+<p class="font-body-md text-body-md text-on-primary-container opacity-90 mb-6">AI predicts a 4% increase in overall GPA this term based on current testing trends.</p>
+<!-- Simplified Visual Graph -->
+<div class="flex items-end gap-2 h-24 mb-4 px-2">
+<div class="flex-1 bg-on-primary-container/20 h-1/2 rounded-t-sm"></div>
+<div class="flex-1 bg-on-primary-container/20 h-2/3 rounded-t-sm"></div>
+<div class="flex-1 bg-on-primary-container/20 h-1/2 rounded-t-sm"></div>
+<div class="flex-1 bg-on-primary-container/20 h-3/4 rounded-t-sm"></div>
+<div class="flex-1 bg-secondary h-full rounded-t-sm relative">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-secondary bg-white px-1 rounded-sm">AI</div>
+</div>
+</div>
+<button class="bg-white text-primary px-6 py-2 rounded-full font-bold text-label-md flex items-center gap-2">
+                        Detailed Analysis <span class="material-symbols-outlined text-[18px]">trending_up</span>
+</button>
+</div>
+<!-- Abstract AI Graphic Element -->
+<div class="absolute right-0 top-0 w-48 h-48 bg-secondary/10 rounded-full blur-3xl -mr-12 -mt-12"></div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 right-0 h-16 bg-surface-container-lowest border-t border-outline-variant flex items-center justify-around px-2 z-40 md:hidden">
+<a class="flex flex-col items-center gap-0.5 text-secondary" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="text-[10px] font-bold">Home</span>
+</a>
+<a class="flex flex-col items-center gap-0.5 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-[10px] font-medium">Students</span>
+</a>
+<a class="flex flex-col items-center gap-0.5 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-[10px] font-medium">Finance</span>
+</a>
+<a class="flex flex-col items-center gap-0.5 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">psychology</span>
+<span class="text-[10px] font-medium">AI Tools</span>
+</a>
+<a class="flex flex-col items-center gap-0.5 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">menu</span>
+<span class="text-[10px] font-medium">Menu</span>
+</a>
+</nav>
+<!-- Client-side Interactions -->
+<script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('mobile-sidenav');
+            const overlay = document.getElementById('sidenav-overlay');
+            
+            if (sidebar.classList.contains('closed')) {
+                sidebar.classList.remove('closed');
+                overlay.classList.remove('hidden');
+                setTimeout(() => overlay.classList.add('opacity-100'), 10);
+            } else {
+                sidebar.classList.add('closed');
+                overlay.classList.remove('opacity-100');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            }
+        }
+
+        // Add active state styles for quick action buttons
+        const actionButtons = document.querySelectorAll('.bento-grid button');
+        actionButtons.forEach(btn => {
+            btn.addEventListener('touchstart', () => btn.classList.add('scale-95'));
+            btn.addEventListener('touchend', () => btn.classList.remove('scale-95'));
+        });
+    </script>
+</body></html>

@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EduCore AI - Lesson Planner</title>
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .ai-shimmer {
+            background: linear-gradient(90deg, rgba(108, 248, 187, 0.1) 0%, rgba(57, 128, 244, 0.1) 50%, rgba(108, 248, 187, 0.1) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite linear;
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed-dim": "#bec6e0",
+                    "surface": "#f7f9fb",
+                    "error-container": "#ffdad6",
+                    "on-surface-variant": "#45464d",
+                    "primary-container": "#131b2e",
+                    "inverse-on-surface": "#eff1f3",
+                    "background": "#f7f9fb",
+                    "on-tertiary-fixed-variant": "#004395",
+                    "secondary-container": "#6cf8bb",
+                    "tertiary-container": "#001a42",
+                    "inverse-surface": "#2d3133",
+                    "surface-tint": "#565e74",
+                    "primary": "#000000",
+                    "on-primary-fixed": "#131b2e",
+                    "on-primary-container": "#7c839b",
+                    "on-error": "#ffffff",
+                    "on-surface": "#191c1e",
+                    "secondary-fixed-dim": "#4edea3",
+                    "on-secondary-container": "#00714d",
+                    "primary-fixed": "#dae2fd",
+                    "inverse-primary": "#bec6e0",
+                    "surface-container-highest": "#e0e3e5",
+                    "tertiary-fixed-dim": "#adc6ff",
+                    "on-tertiary": "#ffffff",
+                    "surface-container": "#eceef0",
+                    "on-tertiary-fixed": "#001a42",
+                    "secondary-fixed": "#6ffbbe",
+                    "secondary": "#006c49",
+                    "tertiary-fixed": "#d8e2ff",
+                    "outline": "#76777d",
+                    "on-secondary-fixed-variant": "#005236",
+                    "on-secondary-fixed": "#002113",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#e6e8ea",
+                    "on-tertiary-container": "#3980f4",
+                    "error": "#ba1a1a",
+                    "tertiary": "#000000",
+                    "surface-variant": "#e0e3e5",
+                    "on-primary": "#ffffff",
+                    "on-background": "#191c1e",
+                    "on-secondary": "#ffffff",
+                    "outline-variant": "#c6c6cd",
+                    "surface-dim": "#d8dadc",
+                    "surface-bright": "#f7f9fb",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "surface-container-low": "#f2f4f6",
+                    "on-error-container": "#93000a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "margin-desktop": "48px",
+                    "base": "4px",
+                    "stack-sm": "8px",
+                    "container-max": "1440px",
+                    "stack-lg": "32px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Geist"],
+                    "headline-lg-mobile": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "label-md": ["Geist"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen">
+<!-- SideNavBar (Authority: JSON & Contextual Mapping) -->
+<aside class="fixed left-0 top-0 h-full w-64 flex flex-col bg-surface-container-low border-r border-outline-variant p-stack-md z-40">
+<div class="mb-10 px-2">
+<h1 class="text-headline-md font-headline-md font-black text-primary">EduCore AI</h1>
+<p class="text-label-sm font-label-sm text-on-surface-variant opacity-70">Admin Terminal</p>
+</div>
+<nav class="flex-grow space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-label-md hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-label-md hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">group</span>
+                Students
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-label-md hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">school</span>
+                Teachers
+            </a>
+<!-- Active State: AI Lesson Planner -->
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container rounded-lg font-bold" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">psychology</span>
+                AI Lesson Planner
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-label-md hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">payments</span>
+                Finance
+            </a>
+</nav>
+<div class="mt-auto pt-6 border-t border-outline-variant space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-label-md hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-label-md hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">help</span>
+                Support
+            </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 flex flex-col min-h-screen">
+<!-- TopNavBar (Authority: JSON Style & Prompt Breadcrumbs) -->
+<header class="sticky top-0 w-full h-16 bg-surface border-b border-outline-variant flex justify-between items-center px-margin-desktop z-30">
+<div class="flex items-center gap-4">
+<nav class="flex items-center text-label-md font-label-md text-on-surface-variant">
+<a class="hover:text-secondary" href="#">Dashboard</a>
+<span class="mx-2 text-outline-variant">/</span>
+<span class="text-on-surface font-bold">AI Lesson Planner</span>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 px-4 py-2 border border-outline text-label-md font-bold rounded-lg hover:bg-surface-container-high transition-all">
+                    Login
+                </button>
+<button class="bg-secondary text-on-secondary px-6 py-2 text-label-md font-bold rounded-lg hover:opacity-90 transition-all">
+                    Book Demo
+                </button>
+</div>
+</header>
+<!-- Planner Workspace Content -->
+<div class="p-8 max-w-container-max mx-auto w-full">
+<!-- Header Section -->
+<div class="mb-8">
+<h2 class="text-headline-lg font-headline-lg text-primary mb-2">AI Lesson Planner</h2>
+<p class="text-body-lg text-on-surface-variant max-w-2xl">Generate high-quality, curriculum-aligned lesson plans with AI assistance. Our system ensures alignment with national standards while saving hours of administrative work.</p>
+</div>
+<!-- Bento Layout Workspace -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Configuration Panel (Left) -->
+<aside class="lg:col-span-4 flex flex-col gap-6">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-6 flex flex-col gap-stack-md">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-secondary">tune</span>
+<h3 class="font-bold text-headline-md">Configuration</h3>
+</div>
+<div class="space-y-4">
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-2">Subject</label>
+<select class="w-full bg-surface border border-outline-variant rounded-lg p-3 text-body-md focus:border-secondary outline-none transition-all">
+<option>Mathematics</option>
+<option>English Language</option>
+<option>Basic Science</option>
+<option>Social Studies</option>
+</select>
+</div>
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-2">Class / Grade</label>
+<select class="w-full bg-surface border border-outline-variant rounded-lg p-3 text-body-md focus:border-secondary outline-none transition-all">
+<option>JSS 1</option>
+<option>JSS 2</option>
+<option>JSS 3</option>
+</select>
+</div>
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-2">Topic</label>
+<input class="w-full bg-surface border border-outline-variant rounded-lg p-3 text-body-md focus:border-secondary outline-none transition-all" placeholder="e.g. Algebraic Expressions" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-2">Duration</label>
+<input class="w-full bg-surface border border-outline-variant rounded-lg p-3 text-body-md focus:border-secondary outline-none transition-all" placeholder="40 mins" type="text"/>
+</div>
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-2">Format</label>
+<select class="w-full bg-surface border border-outline-variant rounded-lg p-3 text-body-md focus:border-secondary outline-none transition-all">
+<option>Standard</option>
+<option>Detailed</option>
+</select>
+</div>
+</div>
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-2">Learning Objectives</label>
+<textarea class="w-full bg-surface border border-outline-variant rounded-lg p-3 text-body-md focus:border-secondary outline-none transition-all" placeholder="What should students be able to do?" rows="3"></textarea>
+</div>
+</div>
+<button class="w-full bg-secondary text-on-secondary font-bold py-4 rounded-xl flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 transition-all shadow-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                            Generate with AI
+                        </button>
+</div>
+<!-- AI Insight Banner Style -->
+<div class="ai-shimmer border border-secondary-container rounded-2xl p-6 relative overflow-hidden">
+<div class="relative z-10 flex gap-4">
+<div class="bg-secondary-container p-2 rounded-lg h-fit">
+<span class="material-symbols-outlined text-on-secondary-container">tips_and_updates</span>
+</div>
+<div>
+<h4 class="font-bold text-on-secondary-container mb-1">AI Suggestion</h4>
+<p class="text-label-md text-on-secondary-container opacity-80 leading-relaxed">Consider adding a hands-on activity using algebra tiles for this topic. It significantly improves conceptual understanding in JSS 1 students.</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Generated Content Area (Right) -->
+<div class="lg:col-span-8 space-y-6">
+<!-- Main Preview Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden">
+<!-- Preview Header -->
+<div class="bg-surface-container border-b border-outline-variant px-8 py-4 flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="bg-secondary text-on-secondary text-[10px] uppercase font-bold px-2 py-0.5 rounded tracking-wider">Draft</span>
+<h4 class="font-bold text-body-lg">Lesson Preview: Algebraic Expressions</h4>
+</div>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-surface-container-high rounded-lg transition-colors text-on-surface-variant" title="Print">
+<span class="material-symbols-outlined">print</span>
+</button>
+<button class="p-2 hover:bg-surface-container-high rounded-lg transition-colors text-on-surface-variant" title="Fullscreen">
+<span class="material-symbols-outlined">fullscreen</span>
+</button>
+</div>
+</div>
+<div class="p-8 space-y-10">
+<!-- Lesson Overview -->
+<section>
+<div class="flex items-center gap-2 mb-4">
+<div class="w-1 h-6 bg-secondary rounded-full"></div>
+<h5 class="text-headline-md font-bold">Lesson Overview</h5>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="space-y-4">
+<div>
+<p class="text-label-sm font-bold text-outline uppercase tracking-widest mb-1">Summary</p>
+<p class="text-body-md text-on-surface-variant">This lesson introduces students to the basic concepts of algebraic variables, constants, and terms, laying the foundation for equation solving.</p>
+</div>
+<div>
+<p class="text-label-sm font-bold text-outline uppercase tracking-widest mb-1">Vocabulary</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-container text-label-md rounded-full border border-outline-variant">Variable</span>
+<span class="px-3 py-1 bg-surface-container text-label-md rounded-full border border-outline-variant">Coefficient</span>
+<span class="px-3 py-1 bg-surface-container text-label-md rounded-full border border-outline-variant">Constant</span>
+<span class="px-3 py-1 bg-surface-container text-label-md rounded-full border border-outline-variant">Expression</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl border border-outline-variant">
+<p class="text-label-sm font-bold text-on-surface-variant mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">inventory_2</span>
+                                            Materials Needed
+                                        </p>
+<ul class="text-label-md space-y-2 list-disc pl-4 text-on-surface-variant">
+<li>Whiteboard &amp; markers</li>
+<li>Algebra tile sets (1 per group)</li>
+<li>Worksheets for practice</li>
+<li>Digital projector for visual aids</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Procedure -->
+<section>
+<div class="flex items-center gap-2 mb-6">
+<div class="w-1 h-6 bg-secondary rounded-full"></div>
+<h5 class="text-headline-md font-bold">Step-by-Step Procedure</h5>
+</div>
+<div class="space-y-6">
+<!-- Step 1 -->
+<div class="flex gap-4 group">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold text-sm">1</div>
+<div class="w-px h-full bg-outline-variant group-last:bg-transparent mt-2"></div>
+</div>
+<div class="pb-6">
+<div class="flex items-center gap-4 mb-2">
+<h6 class="font-bold text-body-lg">Introduction &amp; Hook</h6>
+<span class="text-label-sm text-secondary bg-secondary-container px-2 rounded">10 Mins</span>
+</div>
+<p class="text-body-md text-on-surface-variant">Start with a real-world scenario (e.g., buying items at a market where prices aren't fixed). Introduce variables as "placeholders" for unknown values.</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="flex gap-4 group">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center font-bold text-sm border border-outline-variant">2</div>
+<div class="w-px h-full bg-outline-variant group-last:bg-transparent mt-2"></div>
+</div>
+<div class="pb-6">
+<div class="flex items-center gap-4 mb-2">
+<h6 class="font-bold text-body-lg">Core Activity: Expression Building</h6>
+<span class="text-label-sm text-on-surface-variant bg-surface-container px-2 rounded">20 Mins</span>
+</div>
+<p class="text-body-md text-on-surface-variant">In small groups, students use algebra tiles to represent verbal statements (e.g., "three more than a number") as algebraic expressions. Teacher circulates to check understanding.</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="flex gap-4 group">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center font-bold text-sm border border-outline-variant">3</div>
+</div>
+<div>
+<div class="flex items-center gap-4 mb-2">
+<h6 class="font-bold text-body-lg">Conclusion &amp; Exit Ticket</h6>
+<span class="text-label-sm text-on-surface-variant bg-surface-container px-2 rounded">10 Mins</span>
+</div>
+<p class="text-body-md text-on-surface-variant">Summary of key terms. Students write one algebraic expression on a post-it note to represent "five times a number minus two" before leaving.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- AI Quiz & Differentiation -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="p-6 bg-surface-container-low rounded-2xl border border-outline-variant">
+<div class="flex items-center justify-between mb-4">
+<h6 class="font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-on-tertiary-container">quiz</span>
+                                            AI-Generated Quiz
+                                        </h6>
+<button class="text-label-sm text-on-tertiary-container hover:underline">Regenerate</button>
+</div>
+<div class="space-y-4">
+<div class="p-3 bg-white rounded-lg border border-outline-variant text-label-md">
+<p class="font-bold mb-2">1. In 4x + 7, what is the variable?</p>
+<ul class="space-y-1 opacity-70">
+<li>A) 4</li>
+<li class="text-secondary font-bold">B) x</li>
+<li>C) 7</li>
+</ul>
+</div>
+<div class="p-3 bg-white rounded-lg border border-outline-variant text-label-md opacity-40">
+<p class="font-bold">2. What is the constant in 2y - 12?</p>
+</div>
+<div class="text-center">
+<p class="text-[10px] text-outline italic">+ 3 more questions</p>
+</div>
+</div>
+</div>
+<div class="p-6 bg-surface-container-low rounded-2xl border border-outline-variant">
+<h6 class="font-bold flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-secondary">diversity_3</span>
+                                        Differentiation
+                                    </h6>
+<div class="space-y-4">
+<div class="border-l-2 border-secondary pl-3">
+<p class="text-label-sm font-bold text-secondary mb-1">For Struggling Students</p>
+<p class="text-label-md text-on-surface-variant">Provide a "Cheat Sheet" with visual examples of each vocabulary term and pre-labeled algebra tiles.</p>
+</div>
+<div class="border-l-2 border-tertiary-container pl-3">
+<p class="text-label-sm font-bold text-tertiary-container mb-1">For Advanced Students</p>
+<p class="text-label-md text-on-surface-variant">Challenge them to create expressions for perimeter of irregular shapes and simplify them.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Bar (Sticky Footer of Card) -->
+<div class="bg-surface-container-high px-8 py-6 flex flex-wrap justify-end gap-4">
+<button class="flex items-center gap-2 px-4 py-2 text-on-surface-variant font-bold hover:bg-surface-container-highest rounded-lg transition-all">
+<span class="material-symbols-outlined">edit</span>
+                                Edit Plan
+                            </button>
+<button class="flex items-center gap-2 px-4 py-2 text-on-surface-variant font-bold hover:bg-surface-container-highest rounded-lg transition-all">
+<span class="material-symbols-outlined">share</span>
+                                Share with Dept.
+                            </button>
+<button class="flex items-center gap-2 px-4 py-2 text-on-surface-variant font-bold hover:bg-surface-container-highest rounded-lg transition-all">
+<span class="material-symbols-outlined">save</span>
+                                Save to Library
+                            </button>
+<button class="flex items-center gap-2 px-6 py-2 bg-primary text-on-primary font-bold rounded-lg hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+                                Export to PDF
+                            </button>
+</div>
+</div>
+<!-- Additional Context/History Card -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-6">
+<h5 class="font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined">history</span>
+                                Recent Plans
+                            </h5>
+<div class="space-y-3">
+<div class="flex items-center justify-between p-3 hover:bg-surface-container transition-colors rounded-xl cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-tertiary-fixed-dim flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary-fixed">functions</span>
+</div>
+<div>
+<p class="text-label-md font-bold">Linear Equations</p>
+<p class="text-[10px] text-outline">JSS 2 • 2 days ago</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</div>
+<div class="flex items-center justify-between p-3 hover:bg-surface-container transition-colors rounded-xl cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-secondary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-fixed">language</span>
+</div>
+<div>
+<p class="text-label-md font-bold">Parts of Speech</p>
+<p class="text-[10px] text-outline">JSS 1 • 5 days ago</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-6">
+<h5 class="font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined">trending_up</span>
+                                Alignment Analytics
+                            </h5>
+<div class="flex items-center justify-center h-24">
+<div class="text-center">
+<p class="text-display-lg font-bold text-secondary">98%</p>
+<p class="text-label-sm text-outline">Curriculum Alignment Score</p>
+</div>
+</div>
+<p class="text-[11px] text-center text-on-surface-variant opacity-60 mt-2 px-4">Based on NERDC Nigerian Basic Education Curriculum standards.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer (Authority: JSON) -->
+<footer class="w-full py-stack-lg px-margin-desktop flex flex-col md:flex-row justify-between items-center bg-surface-container-highest mt-auto">
+<div class="flex flex-col md:flex-row items-center gap-6">
+<h3 class="text-headline-md font-headline-md font-bold text-primary">EduCore AI</h3>
+<p class="text-body-md font-body-md text-on-surface-variant">© 2024 EduCore AI. Powering African Excellence.</p>
+</div>
+<div class="flex gap-8 mt-4 md:mt-0">
+<a class="text-on-surface-variant hover:underline transition-all font-body-md text-body-md" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:underline transition-all font-body-md text-body-md" href="#">Terms of Service</a>
+<a class="text-on-surface-variant hover:underline transition-all font-body-md text-body-md" href="#">Contact Support</a>
+</div>
+</footer>
+</main>
+<!-- FAB Suppression Rule (Not Home/Dashboard) - Suppressed -->
+<script>
+        // Micro-interactions
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.classList.add('scale-95');
+                setTimeout(() => this.classList.remove('scale-95'), 150);
+            });
+        });
+
+        // Toggle state logic for preview (Demo purposes)
+        const generateBtn = document.querySelector('button.bg-secondary');
+        const previewContainer = document.querySelector('.lg\\:col-span-8');
+        
+        generateBtn.addEventListener('click', () => {
+            previewContainer.style.opacity = '0.5';
+            setTimeout(() => {
+                previewContainer.style.opacity = '1';
+                // Trigger any entry animations if needed
+            }, 800);
+        });
+    </script>
+</body></html>
